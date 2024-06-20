@@ -1,5 +1,5 @@
 <div class="orders-table">
-  <p-table [value]="ordersList">
+  <p-table [value]="ordersList" [expandedRowKeys]="expandedRows" dataKey="id">
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 5rem"></th>
@@ -11,12 +11,23 @@
     </ng-template>
     <ng-template pTemplate="body" let-order let-expanded="expanded">
       <tr>
-        <p-button type="button" [pRowToggler]="order" [text]="true" [rounded]="true" [plain]="true"
-          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
+        <td>
+          <p-button type="button" [pRowToggler]="order" [text]="true" [rounded]="true" [plain]="true"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+        </td>
         <td>{{ order.id }}</td>
         <td>{{ order.customer }}</td>
         <td>{{ order.school }}</td>
         <td>{{ order.price }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-order>
+      <tr>
+        <td colspan="5">
+          <div class="p-ml-2">
+            <h5>Details for {{ order.customer }}</h5>
+          </div>
+        </td>
       </tr>
     </ng-template>
   </p-table>

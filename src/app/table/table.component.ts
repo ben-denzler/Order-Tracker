@@ -16,6 +16,7 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './table.component.css'
 })
 export class TableComponent {
+  expandedRows = {};
   ordersList: Order[] = [
     {
       id: 0,
