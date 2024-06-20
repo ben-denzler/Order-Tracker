@@ -7,6 +7,7 @@
         <th>Customer</th>
         <th>School</th>
         <th>Price</th>
+        <th>Status</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-order let-expanded="expanded">
@@ -18,12 +19,13 @@
         <td>{{ order.id }}</td>
         <td>{{ order.customer }}</td>
         <td>{{ order.school }}</td>
-        <td>{{ order.price }}</td>
+        <td>${{ order.price }}</td>
+        <td>{{ order.status }}</td>
       </tr>
     </ng-template>
     <ng-template pTemplate="rowexpansion" let-order>
       <tr>
-        <td colspan="5">
+        <td colspan="6">
           <div class="p-ml-2">
             <h5>Details for {{ order.customer }}</h5>
           </div>
