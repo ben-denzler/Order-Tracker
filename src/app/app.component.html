@@ -1,18 +1,5 @@
-<div class="orders-table">
-  <p-table [value]="ordersList" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Order ID</th>
-        <th>Customer</th>
-        <th>School</th>
-        <th>Price</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-order>
-      <td>{{ order.id }}</td>
-      <td>{{ order.customer }}</td>
-      <td>{{ order.school }}</td>
-      <td>{{ order.price }}</td>
-    </ng-template>
-  </p-table>
-</div>
+<main>
+  <section class="orders-table">
+    <app-table></app-table>
+  </section>
+</main>
