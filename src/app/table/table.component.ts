@@ -2,11 +2,16 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Order } from '../order';
 import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, TableModule],
+  imports: [
+    CommonModule,
+    TableModule,
+    ButtonModule
+  ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })

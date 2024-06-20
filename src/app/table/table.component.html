@@ -2,14 +2,17 @@
   <p-table [value]="ordersList">
     <ng-template pTemplate="header">
       <tr>
+        <th style="width: 5rem"></th>
         <th>Order ID</th>
         <th>Customer</th>
         <th>School</th>
         <th>Price</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-order>
+    <ng-template pTemplate="body" let-order let-expanded="expanded">
       <tr>
+        <p-button type="button" [pRowToggler]="order" [text]="true" [rounded]="true" [plain]="true"
+          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
         <td>{{ order.id }}</td>
         <td>{{ order.customer }}</td>
         <td>{{ order.school }}</td>
