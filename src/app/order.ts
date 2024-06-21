@@ -6,6 +6,8 @@ export enum OrderStatus {
   Finished = "Finished"
 }
 
+// Add for dropdown:
+// Created by/on, updated by/on
 export interface Order {
   id: number,
   customer: string,
