@@ -68,6 +68,7 @@
                   <th>Product ID</th>
                   <th>Name</th>
                   <th># Needed</th>
+                  <th># In Stock</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-product>
@@ -76,6 +77,14 @@
                   <td>{{ product.id }}</td>
                   <td>{{ product.name }}</td>
                   <td>{{ product.quantity }}</td>
+                  <td>
+                    {{ getStockCount(product) }}
+                    @if (isEnoughStock(product)) {
+                      <i class="pi pi-check-circle" style="color: green; margin-left: 0.5rem"></i>
+                    } @else {
+                      <i class="pi pi-times-circle" style="color: red; margin-left: 0.5rem"></i>
+                    }
+                  </td>
                 </tr>
               </ng-template>
               <ng-template pTemplate="emptymessage">

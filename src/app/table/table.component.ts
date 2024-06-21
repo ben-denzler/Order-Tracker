@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Order, OrderStatus } from '../order';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
+import { Order, OrderStatus } from '../order';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-table',
@@ -17,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 })
 export class TableComponent {
   expandedRows = {};
+
   ordersList: Order[] = [
     {
       id: 0,
@@ -89,4 +91,26 @@ export class TableComponent {
       updatedOn: new Date(2022, 0, 10) // January 10, 2022
     }
   ];
+
+  inventory: Product[] = [
+    { id: 0, name: 'T-shirt', quantity: 10 },
+    { id: 1, name: 'Pants', quantity: 15 },
+    { id: 2, name: 'Shoes', quantity: 1 },
+    { id: 3, name: 'Socks', quantity: 2 },
+    { id: 4, name: 'Backpack', quantity: 4 },
+    { id: 5, name: 'Notebook', quantity: 7 },
+    { id: 6, name: 'Pencil', quantity: 12 },
+    { id: 7, name: 'Eraser', quantity: 13 },
+    { id: 8, name: 'Jacket', quantity: 27 },
+    { id: 9, name: 'Hat', quantity: 19 }
+  ];
+
+  getStockCount(p: Product): number {
+    const numberInStock = this.inventory.find(product => product.id === p.id)?.quantity;
+    return numberInStock ?? 0;
+  }
+
+  isEnoughStock(p: Product): boolean {
+    return p.quantity <= this.getStockCount(p);
+  }
 }
