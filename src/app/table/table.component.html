@@ -45,8 +45,16 @@
     <ng-template pTemplate="rowexpansion" let-order>
       <tr>
         <td colspan="6">
-          <div class="p-ml-2">
-            <h5>Details for {{ order.customer }}</h5>
+          <div style="margin: 0.75rem">
+            <span class="order-details">
+              <strong>Order created on:</strong> {{ order.createdOn | date:'longDate'}}
+            </span>
+            <span class="order-details">
+              <strong>Order updated on:</strong> {{ order.updatedOn | date:'longDate'}}
+            </span>
+            <div style="margin-top: 1rem">
+              <strong>Description:</strong> {{ order.description }}
+            </div>
           </div>
         </td>
       </tr>
