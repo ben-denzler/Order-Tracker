@@ -39,7 +39,7 @@
         <td>{{ order.customer }}</td>
         <td>{{ order.school }}</td>
         <td>{{ order.status }}</td>
-        <td>${{ order.price }}</td>
+        <td>{{ order.price | currency:"USD" }}</td>
       </tr>
     </ng-template>
     <ng-template pTemplate="rowexpansion" let-order>
