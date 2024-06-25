@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {TableModule} from 'primeng/table';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from "primeng/dialog";
+import {DropdownModule} from "primeng/dropdown";
+import {InputNumberModule} from "primeng/inputnumber";
 import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
-import {DropdownModule} from "primeng/dropdown";
+import {TableModule} from 'primeng/table';
+import {ToolbarModule} from "primeng/toolbar";
 import {Order, OrderStatus} from '../order';
 import {Product} from '../product';
-import {InputNumberModule} from "primeng/inputnumber";
 
 @Component({
   selector: 'app-table',
@@ -23,20 +24,14 @@ import {InputNumberModule} from "primeng/inputnumber";
     InputTextareaModule,
     DropdownModule,
     FormsModule,
-    InputNumberModule
+    InputNumberModule,
+    ToolbarModule
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })
 export class TableComponent implements OnInit {
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
-
   expandedRows = {};
-
   ordersList: Order[] = [
     {
       id: 0,
@@ -109,7 +104,6 @@ export class TableComponent implements OnInit {
       updatedOn: new Date(2022, 0, 10) // January 10, 2022
     }
   ];
-
   inventory: Product[] = [
     {id: 0, name: 'T-shirt', quantity: 10},
     {id: 1, name: 'Pants', quantity: 15},
@@ -122,9 +116,8 @@ export class TableComponent implements OnInit {
     {id: 8, name: 'Jacket', quantity: 27},
     {id: 9, name: 'Hat', quantity: 19}
   ];
-
   orderStatuses: string[] = Object.keys(OrderStatus)
-  showOrderDialog: boolean = true;
+  showOrderDialog: boolean = false;
   newOrder: Order = {
     id: this.getHighestOrderId() + 1,
     customer: '',
@@ -136,6 +129,31 @@ export class TableComponent implements OnInit {
     createdOn: new Date(),
     updatedOn: new Date()
   };
+
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
+
+  closeNew(): void {
+    this.showOrderDialog = false;
+  }
+
+  openNew(): void {
+    this.showOrderDialog = true;
+    this.newOrder = {
+      id: this.getHighestOrderId() + 1,
+      customer: '',
+      school: '',
+      price: 0,
+      products: [],
+      status: OrderStatus.Designing,
+      description: '',
+      createdOn: new Date(),
+      updatedOn: new Date()
+    };
+  }
 
   getStockCount(p: Product): number {
     const numberInStock = this.inventory.find(product => product.id === p.id)?.quantity;
@@ -154,16 +172,5 @@ export class TableComponent implements OnInit {
 
   saveOrder(): void {
     this.ordersList.push(this.newOrder);
-    this.newOrder = {
-      id: this.getHighestOrderId() + 1,
-      customer: '',
-      school: '',
-      price: 0,
-      products: [],
-      status: OrderStatus.Designing,
-      description: '',
-      createdOn: new Date(),
-      updatedOn: new Date()
-    };
   }
 }

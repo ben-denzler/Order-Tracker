@@ -1,4 +1,9 @@
-<div class="orders-table" xmlns="http://www.w3.org/1999/html">
+<div class="orders-table">
+  <p-toolbar>
+    <div class="p-toolbar-group-start">
+      <p-button severity="success" label="New Order" icon="pi pi-plus" (click)="openNew()"/>
+    </div>
+  </p-toolbar>
   <p-table [value]="ordersList" dataKey="id" [expandedRowKeys]="expandedRows"
            [globalFilterFields]="['id', 'customer', 'school', 'status']"
            [paginator]="true"
@@ -142,7 +147,7 @@
       </div>
     </ng-template>
     <ng-template pTemplate="footer">
-      <p-button label="Cancel" icon="pi pi-times"/>
+      <p-button label="Cancel" icon="pi pi-times" (onClick)="closeNew()"/>
       <p-button label="Save" icon="pi pi-check" (onClick)="saveOrder()"/>
     </ng-template>
   </p-dialog>
