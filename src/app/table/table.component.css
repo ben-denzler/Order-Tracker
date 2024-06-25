@@ -13,3 +13,13 @@ th.row-dropdown {
 ::ng-deep .p-datatable .p-datatable-thead > tr > th {
   padding: 0.7rem;
 }
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  > label {
+    margin-bottom: 0.5rem;
+  }
+}

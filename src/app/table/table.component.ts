@@ -1,9 +1,15 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { Order, OrderStatus } from '../order';
-import { Product } from '../product';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from "@angular/forms";
+import {TableModule} from 'primeng/table';
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from "primeng/dialog";
+import {InputTextModule} from "primeng/inputtext";
+import {InputTextareaModule} from "primeng/inputtextarea";
+import {DropdownModule} from "primeng/dropdown";
+import {Order, OrderStatus} from '../order';
+import {Product} from '../product';
+import {InputNumberModule} from "primeng/inputnumber";
 
 @Component({
   selector: 'app-table',
@@ -12,11 +18,23 @@ import { Product } from '../product';
     CommonModule,
     TableModule,
     ButtonModule,
+    DialogModule,
+    InputTextModule,
+    InputTextareaModule,
+    DropdownModule,
+    FormsModule,
+    InputNumberModule
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
+
   expandedRows = {};
 
   ordersList: Order[] = [
@@ -26,8 +44,8 @@ export class TableComponent {
       school: 'Century',
       price: 100,
       products: [
-        { id: 0, name: 'T-shirt', quantity: 2 },
-        { id: 1, name: 'Pants', quantity: 1 }
+        {id: 0, name: 'T-shirt', quantity: 2},
+        {id: 1, name: 'Pants', quantity: 1}
       ],
       status: OrderStatus.Designing,
       description: "This is the first order description.",
@@ -40,8 +58,8 @@ export class TableComponent {
       school: 'Riverside',
       price: 150,
       products: [
-        { id: 2, name: 'Shoes', quantity: 1 },
-        { id: 3, name: 'Socks', quantity: 3 }
+        {id: 2, name: 'Shoes', quantity: 1},
+        {id: 3, name: 'Socks', quantity: 3}
       ],
       status: OrderStatus.Finished,
       description: "This is the second order description.",
@@ -54,8 +72,8 @@ export class TableComponent {
       school: 'Greenwood',
       price: 200,
       products: [
-        { id: 4, name: 'Backpack', quantity: 1 },
-        { id: 5, name: 'Notebook', quantity: 5 }
+        {id: 4, name: 'Backpack', quantity: 1},
+        {id: 5, name: 'Notebook', quantity: 5}
       ],
       status: OrderStatus.Packaging,
       description: "This is the third order description.",
@@ -68,8 +86,8 @@ export class TableComponent {
       school: 'Westview',
       price: 75,
       products: [
-        { id: 6, name: 'Pencil', quantity: 10 },
-        { id: 7, name: 'Eraser', quantity: 5 }
+        {id: 6, name: 'Pencil', quantity: 10},
+        {id: 7, name: 'Eraser', quantity: 5}
       ],
       status: OrderStatus.Designing,
       description: "This is the fourth order description.",
@@ -82,8 +100,8 @@ export class TableComponent {
       school: 'Sunrise',
       price: 125,
       products: [
-        { id: 8, name: 'Jacket', quantity: 1 },
-        { id: 9, name: 'Hat', quantity: 2 }
+        {id: 8, name: 'Jacket', quantity: 1},
+        {id: 9, name: 'Hat', quantity: 2}
       ],
       status: OrderStatus.Finished,
       description: "This is the fifth order description.",
@@ -93,17 +111,31 @@ export class TableComponent {
   ];
 
   inventory: Product[] = [
-    { id: 0, name: 'T-shirt', quantity: 10 },
-    { id: 1, name: 'Pants', quantity: 15 },
-    { id: 2, name: 'Shoes', quantity: 1 },
-    { id: 3, name: 'Socks', quantity: 2 },
-    { id: 4, name: 'Backpack', quantity: 4 },
-    { id: 5, name: 'Notebook', quantity: 7 },
-    { id: 6, name: 'Pencil', quantity: 12 },
-    { id: 7, name: 'Eraser', quantity: 13 },
-    { id: 8, name: 'Jacket', quantity: 27 },
-    { id: 9, name: 'Hat', quantity: 19 }
+    {id: 0, name: 'T-shirt', quantity: 10},
+    {id: 1, name: 'Pants', quantity: 15},
+    {id: 2, name: 'Shoes', quantity: 1},
+    {id: 3, name: 'Socks', quantity: 2},
+    {id: 4, name: 'Backpack', quantity: 4},
+    {id: 5, name: 'Notebook', quantity: 7},
+    {id: 6, name: 'Pencil', quantity: 12},
+    {id: 7, name: 'Eraser', quantity: 13},
+    {id: 8, name: 'Jacket', quantity: 27},
+    {id: 9, name: 'Hat', quantity: 19}
   ];
+
+  orderStatuses: string[] = Object.keys(OrderStatus)
+  showOrderDialog: boolean = true;
+  newOrder: Order = {
+    id: this.getHighestOrderId() + 1,
+    customer: '',
+    school: '',
+    price: 0,
+    products: [],
+    status: OrderStatus.Designing,
+    description: '',
+    createdOn: new Date(),
+    updatedOn: new Date()
+  };
 
   getStockCount(p: Product): number {
     const numberInStock = this.inventory.find(product => product.id === p.id)?.quantity;
@@ -112,5 +144,26 @@ export class TableComponent {
 
   isEnoughStock(p: Product): boolean {
     return p.quantity <= this.getStockCount(p);
+  }
+
+  getHighestOrderId(): number {
+    return this.ordersList.reduce((maxId, order) => {
+      return order.id > maxId ? order.id : maxId;
+    }, 0);
+  }
+
+  saveOrder(): void {
+    this.ordersList.push(this.newOrder);
+    this.newOrder = {
+      id: this.getHighestOrderId() + 1,
+      customer: '',
+      school: '',
+      price: 0,
+      products: [],
+      status: OrderStatus.Designing,
+      description: '',
+      createdOn: new Date(),
+      updatedOn: new Date()
+    };
   }
 }
