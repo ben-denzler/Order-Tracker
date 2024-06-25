@@ -1,6 +1,9 @@
 <div class="orders-table">
   <p-table [value]="ordersList" dataKey="id" [expandedRowKeys]="expandedRows"
            [globalFilterFields]="['id', 'customer', 'school', 'status']"
+           [paginator]="true"
+           [rows]="10"
+           [rowsPerPageOptions]="[10, 25, 50]"
            styleClass="p-datatable-striped">
     <ng-template pTemplate="header">
       <tr>

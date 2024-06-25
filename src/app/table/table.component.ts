@@ -11,7 +11,7 @@ import { Product } from '../product';
   imports: [
     CommonModule,
     TableModule,
-    ButtonModule
+    ButtonModule,
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
