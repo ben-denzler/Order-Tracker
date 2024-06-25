@@ -1,31 +1,47 @@
 <div class="orders-table">
   <p-table [value]="ordersList" dataKey="id" [expandedRowKeys]="expandedRows"
-    [globalFilterFields]="['id', 'customer', 'school', 'status']">
+           [globalFilterFields]="['id', 'customer', 'school', 'status']"
+           styleClass="p-datatable-striped">
     <ng-template pTemplate="header">
       <tr>
         <th style="width: 5rem"></th>
-        <th>Order ID</th>
-        <th>Customer</th>
-        <th>School</th>
-        <th>Status</th>
-        <th>Price</th>
+        <th pSortableColumn="id">
+          Order ID
+          <p-sortIcon field="id"/>
+        </th>
+        <th pSortableColumn="customer">
+          Customer
+          <p-sortIcon field="customer"/>
+        </th>
+        <th pSortableColumn="school">
+          School
+          <p-sortIcon field="school"/>
+        </th>
+        <th pSortableColumn="status">
+          Status
+          <p-sortIcon field="status"/>
+        </th>
+        <th pSortableColumn="price">
+          Price
+          <p-sortIcon field="price"/>
+        </th>
       </tr>
       <tr>
         <th style="width: 5rem"></th>
         <th>
-          <p-columnFilter type="numeric" field="id" placeholder="Search by ID" ariaLabel="Filter ID" />
+          <p-columnFilter type="numeric" field="id" placeholder="Search by ID" ariaLabel="Filter ID"/>
         </th>
         <th>
-          <p-columnFilter type="text" field="customer" placeholder="Search by customer" ariaLabel="Filter Customer" />
+          <p-columnFilter type="text" field="customer" placeholder="Search by customer" ariaLabel="Filter Customer"/>
         </th>
         <th>
-          <p-columnFilter type="text" field="school" placeholder="Search by school" ariaLabel="Filter School" />
+          <p-columnFilter type="text" field="school" placeholder="Search by school" ariaLabel="Filter School"/>
         </th>
         <th>
-          <p-columnFilter type="text" field="status" placeholder="Search by status" ariaLabel="Filter Status" />
+          <p-columnFilter type="text" field="status" placeholder="Search by status" ariaLabel="Filter Status"/>
         </th>
         <th>
-          <p-columnFilter type="numeric" field="price" placeholder="Search by price" ariaLabel="Filter Price" />
+          <p-columnFilter type="numeric" field="price" placeholder="Search by price" ariaLabel="Filter Price"/>
         </th>
       </tr>
     </ng-template>
@@ -33,7 +49,7 @@
       <tr>
         <td>
           <p-button type="button" [pRowToggler]="order" [text]="true" [rounded]="true" [plain]="true"
-            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
         </td>
         <td>{{ order.id }}</td>
         <td>{{ order.customer }}</td>
@@ -47,10 +63,10 @@
         <td colspan="6">
           <div style="margin: 0.75rem">
             <span class="order-details">
-              <strong>Order created on:</strong> {{ order.createdOn | date:'longDate'}}
+              <strong>Order created on:</strong> {{ order.createdOn | date:'longDate' }}
             </span>
             <span class="order-details">
-              <strong>Order updated on:</strong> {{ order.updatedOn | date:'longDate'}}
+              <strong>Order updated on:</strong> {{ order.updatedOn | date:'longDate' }}
             </span>
             <div style="margin-top: 1rem">
               <strong>Description:</strong> {{ order.description }}
