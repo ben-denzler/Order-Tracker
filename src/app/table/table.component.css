@@ -2,6 +2,10 @@
   margin-right: 2rem;
 }
 
+th.row-dropdown {
+  width: 5rem;
+}
+
 ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
   padding: 0.5rem;
 }

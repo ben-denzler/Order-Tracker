@@ -4,7 +4,7 @@
            styleClass="p-datatable-striped">
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 5rem"></th>
+        <th class="row-dropdown"></th>
         <th pSortableColumn="id">
           Order ID
           <p-sortIcon field="id"/>
@@ -27,7 +27,7 @@
         </th>
       </tr>
       <tr>
-        <th style="width: 5rem"></th>
+        <th class="row-dropdown"></th>
         <th>
           <p-columnFilter type="numeric" field="id" placeholder="Search by ID" ariaLabel="Filter ID"/>
         </th>
@@ -80,7 +80,7 @@
             <p-table [value]="order.products" dataKey="id">
               <ng-template pTemplate="header">
                 <tr>
-                  <th style="width: 5rem"></th>
+                  <th class="row-dropdown"></th>
                   <th>Product ID</th>
                   <th>Name</th>
                   <th># Needed</th>
@@ -89,7 +89,7 @@
               </ng-template>
               <ng-template pTemplate="body" let-product>
                 <tr>
-                  <th style="width: 5rem"></th>
+                  <th class="row-dropdown"></th>
                   <td>{{ product.id }}</td>
                   <td>{{ product.name }}</td>
                   <td>{{ product.quantity }}</td>
