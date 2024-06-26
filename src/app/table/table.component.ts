@@ -62,7 +62,8 @@ export class TableComponent implements OnInit {
       status: OrderStatus.Designing,
       description: '',
       createdOn: new Date(),
-      updatedOn: new Date()
+      updatedOn: new Date(),
+      dueOn: new Date()
     };
   }
 

@@ -13,9 +13,9 @@
     <ng-template pTemplate="header">
       <tr>
         <th class="row-dropdown"></th>
-        <th pSortableColumn="id">
-          Order ID
-          <p-sortIcon field="id"/>
+        <th pSortableColumn="dueOn">
+          Deadline
+          <p-sortIcon field="dueOn"/>
         </th>
         <th pSortableColumn="customer">
           Customer
@@ -37,7 +37,7 @@
       <tr>
         <th class="row-dropdown"></th>
         <th>
-          <p-columnFilter type="numeric" field="id" placeholder="Search by ID" ariaLabel="Filter ID"/>
+          <p-columnFilter type="date" field="dueOn" placeholder="Search by date" ariaLabel="Filter Customer"/>
         </th>
         <th>
           <p-columnFilter type="text" field="customer" placeholder="Search by customer" ariaLabel="Filter Customer"/>
@@ -59,7 +59,7 @@
           <p-button type="button" [pRowToggler]="order" [text]="true" [rounded]="true" [plain]="true"
                     [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
         </td>
-        <td>{{ order.id }}</td>
+        <td>{{ order.dueOn | date: 'MM/dd/yyyy' }}</td>
         <td>{{ order.customer }}</td>
         <td>{{ order.school }}</td>
         <td>{{ order.status }}</td>

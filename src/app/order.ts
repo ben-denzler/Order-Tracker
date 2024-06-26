@@ -15,5 +15,6 @@ export interface Order {
   status: OrderStatus,
   description: string,
   createdOn: Date,
-  updatedOn: Date
+  updatedOn: Date,
+  dueOn: Date
 }

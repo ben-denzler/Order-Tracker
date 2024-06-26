@@ -1,14 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Order, OrderStatus } from './order';
-import { Product } from './product';
+import {Injectable} from '@angular/core';
+import {Order, OrderStatus} from './order';
+import {Product} from './product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  constructor() { }
-
-  protected orderList: Order[] = [
+  orderList: Order[] = [
     {
       id: 0,
       customer: 'Benjamin Denzler',
@@ -21,7 +19,8 @@ export class OrderService {
       status: OrderStatus.Designing,
       description: "This is the first order description.",
       createdOn: new Date(2022, 0, 1), // January 1, 2022
-      updatedOn: new Date(2022, 0, 2) // January 2, 2022
+      updatedOn: new Date(2022, 0, 2), // January 2, 2022
+      dueOn: new Date(2022, 0, 9) // Example: 7 days after updatedOn
     },
     {
       id: 1,
@@ -35,7 +34,8 @@ export class OrderService {
       status: OrderStatus.Finished,
       description: "This is the second order description.",
       createdOn: new Date(2022, 0, 3), // January 3, 2022
-      updatedOn: new Date(2022, 0, 4) // January 4, 2022
+      updatedOn: new Date(2022, 0, 4), // January 4, 2022
+      dueOn: new Date(2022, 0, 11) // Example: 7 days after updatedOn
     },
     {
       id: 2,
@@ -49,7 +49,8 @@ export class OrderService {
       status: OrderStatus.Packaging,
       description: "This is the third order description.",
       createdOn: new Date(2022, 0, 5), // January 5, 2022
-      updatedOn: new Date(2022, 0, 6) // January 6, 2022
+      updatedOn: new Date(2022, 0, 6), // January 6, 2022
+      dueOn: new Date(2022, 0, 13) // Example: 7 days after updatedOn
     },
     {
       id: 3,
@@ -63,7 +64,8 @@ export class OrderService {
       status: OrderStatus.Designing,
       description: "This is the fourth order description.",
       createdOn: new Date(2022, 0, 7), // January 7, 2022
-      updatedOn: new Date(2022, 0, 8) // January 8, 2022
+      updatedOn: new Date(2022, 0, 8), // January 8, 2022
+      dueOn: new Date(2022, 0, 15) // Example: 7 days after updatedOn
     },
     {
       id: 4,
@@ -77,10 +79,10 @@ export class OrderService {
       status: OrderStatus.Finished,
       description: "This is the fifth order description.",
       createdOn: new Date(2022, 0, 9), // January 9, 2022
-      updatedOn: new Date(2022, 0, 10) // January 10, 2022
+      updatedOn: new Date(2022, 0, 10), // January 10, 2022
+      dueOn: new Date(2022, 0, 17) // Example: 7 days after updatedOn
     }
   ];
-
   protected inventory: Product[] = [
     {id: 0, name: 'T-shirt', quantity: 10},
     {id: 1, name: 'Pants', quantity: 15},
@@ -93,6 +95,9 @@ export class OrderService {
     {id: 8, name: 'Jacket', quantity: 27},
     {id: 9, name: 'Hat', quantity: 19}
   ];
+
+  constructor() {
+  }
 
   getAllOrders(): Order[] {
     return this.orderList;
