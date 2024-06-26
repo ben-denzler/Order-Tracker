@@ -1,9 +1,11 @@
-<div class="orders-table">
+<div class="orders-toolbar">
   <p-toolbar>
     <div class="p-toolbar-group-start">
       <p-button severity="success" label="New Order" icon="pi pi-plus" (click)="openNew()"/>
     </div>
   </p-toolbar>
+</div>
+<div class="orders-table">
   <p-table [value]="orderList" dataKey="id" [expandedRowKeys]="expandedRows"
            [globalFilterFields]="['id', 'customer', 'school', 'status']"
            [paginator]="true"

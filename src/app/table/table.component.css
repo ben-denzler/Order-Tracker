@@ -1,3 +1,11 @@
+.orders-toolbar {
+  margin-bottom: 1rem;
+}
+
+.orders-table {
+  border: 1px solid #e5e7eb;
+}
+
 .order-details {
   margin-right: 2rem;
 }

@@ -1,4 +1,4 @@
-.orders-table {
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
-  margin: 5rem;
+.main-content {
+  margin: 3rem auto;
+  max-width: 90%;
 }
