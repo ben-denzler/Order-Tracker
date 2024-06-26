@@ -10,8 +10,9 @@ import {InputTextareaModule} from "primeng/inputtextarea";
 import {TableModule} from 'primeng/table';
 import {ToolbarModule} from "primeng/toolbar";
 import {Order, OrderStatus} from '../order';
-import {Product} from '../product';
+import {OrderDialogComponent} from "../order-dialog/order-dialog.component";
 import {OrderService} from '../order.service';
+import {Product} from '../product';
 
 @Component({
   selector: 'app-table',
@@ -26,7 +27,8 @@ import {OrderService} from '../order.service';
     DropdownModule,
     FormsModule,
     InputNumberModule,
-    ToolbarModule
+    ToolbarModule,
+    OrderDialogComponent
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'

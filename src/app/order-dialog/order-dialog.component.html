@@ -1,0 +1,29 @@
+<p-dialog header="Create New Order"
+          [(visible)]="showOrderDialog" [modal]="true" [style]="{ width: '550px' }">
+  <ng-template pTemplate="content">
+    <div class="field">
+      <label for="customer">Customer</label>
+      <input type="text" pInputText id="customer" [(ngModel)]="order.customer">
+    </div>
+    <div class="field">
+      <label for="school">School</label>
+      <input type="text" pInputText id="school" [(ngModel)]="order.school">
+    </div>
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea id="description" pInputTextarea rows="5" [(ngModel)]="order.description"></textarea>
+    </div>
+    <div class="field">
+      <label for="status">Status</label>
+      <p-dropdown id="status" [options]="orderStatuses" placeholder="Select a Status" [(ngModel)]="order.status"/>
+    </div>
+    <div class="field">
+      <label for="price">Price</label>
+      <p-inputNumber id="price" mode="currency" currency="USD" locale="en-US" [(ngModel)]="order.price"/>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" icon="pi pi-times" (onClick)="closeNew()"/>
+    <p-button label="Save" icon="pi pi-check" (onClick)="saveOrder()"/>
+  </ng-template>
+</p-dialog>
