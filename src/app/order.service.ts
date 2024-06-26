@@ -6,6 +6,8 @@ import { Product } from './product';
   providedIn: 'root'
 })
 export class OrderService {
+  constructor() { }
+
   protected orderList: Order[] = [
     {
       id: 0,
@@ -100,5 +102,9 @@ export class OrderService {
     return this.inventory;
   }
 
-  constructor() { }
+  getHighestOrderId(): number {
+    return this.orderList.reduce((maxId, order) => {
+      return order.id > maxId ? order.id : maxId;
+    }, 0);
+  }
 }

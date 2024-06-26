@@ -4,7 +4,7 @@
       <p-button severity="success" label="New Order" icon="pi pi-plus" (click)="openNew()"/>
     </div>
   </p-toolbar>
-  <p-table [value]="ordersList" dataKey="id" [expandedRowKeys]="expandedRows"
+  <p-table [value]="orderList" dataKey="id" [expandedRowKeys]="expandedRows"
            [globalFilterFields]="['id', 'customer', 'school', 'status']"
            [paginator]="true"
            [rows]="10"
