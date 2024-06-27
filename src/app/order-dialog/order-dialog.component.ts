@@ -32,6 +32,12 @@ export class OrderDialogComponent {
   @Input() orderStatuses!: string[];
   @Output() closeDialogEvent = new EventEmitter<void>();
   @Output() saveOrderEvent = new EventEmitter<Order>();
+  currentPage: number = 1;
+
+  goToNextPage(): void {
+    this.currentPage++;
+    console.log(`Current page: ${this.currentPage}`);
+  }
 
   closeDialog(): void {
     console.log("Dialog emitted close event");
