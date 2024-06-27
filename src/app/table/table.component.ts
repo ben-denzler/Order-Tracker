@@ -49,8 +49,14 @@ export class TableComponent implements OnInit {
     this.inventory = this.orderService.getInventory();
   }
 
-  closeNew(): void {
+  closeNewDialog(): void {
     this.showOrderDialog = false;
+    console.log("Parent handled close event");
+  }
+
+  saveOrder(order: Order): void {
+    this.orderList.push(order);
+    console.log("Parent handled save event");
   }
 
   openNew(): void {
@@ -76,9 +82,5 @@ export class TableComponent implements OnInit {
 
   isEnoughStock(p: Product): boolean {
     return p.quantity <= this.getStockCount(p);
-  }
-
-  saveOrder(): void {
-    this.orderList.push(this.newOrder);
   }
 }

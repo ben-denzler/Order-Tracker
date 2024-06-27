@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PrimeTemplate} from "primeng/api";
 import {Button} from "primeng/button";
@@ -28,4 +28,18 @@ import {Order} from "../order";
 })
 export class OrderDialogComponent {
   @Input() order!: Order;
+  @Input() showDialog!: boolean;
+  @Input() orderStatuses!: string[];
+  @Output() closeDialogEvent = new EventEmitter<void>();
+  @Output() saveOrderEvent = new EventEmitter<Order>();
+
+  closeDialog(): void {
+    console.log("Dialog emitted close event");
+    this.closeDialogEvent.emit();
+  }
+
+  saveNewOrder(): void {
+    console.log("Dialog emitted save event");
+    this.saveOrderEvent.emit(this.order);
+  }
 }
