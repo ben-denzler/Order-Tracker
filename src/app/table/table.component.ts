@@ -37,7 +37,18 @@ export class TableComponent implements OnInit {
   expandedRows = {};
   orderList!: Order[];
   inventory!: Product[];
-  newOrder!: Order;
+  newOrder: Order = { // FIXME: Make this a class
+    id: this.orderService.getHighestOrderId() + 1,
+    customer: '',
+    school: '',
+    price: 0,
+    products: [],
+    status: OrderStatus.Designing,
+    description: '',
+    createdOn: new Date(),
+    updatedOn: new Date(),
+    dueOn: new Date()
+  };
   orderStatuses: string[] = Object.keys(OrderStatus);
   showOrderDialog: boolean = false;
 
