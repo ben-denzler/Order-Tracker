@@ -37,7 +37,6 @@ export class OrderDialogComponent implements OnInit {
   @Output() closeDialogEvent = new EventEmitter<void>();
   @Output() saveOrderEvent = new EventEmitter<Order>();
   inventory!: Product[];
-  selectedProducts: Product[] = [];
   currentPage: number = 1;
 
   constructor(private orderService: OrderService) {
