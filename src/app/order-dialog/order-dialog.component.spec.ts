@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { OrderDialogComponent } from './order-dialog.component';
+import {OrderDialogComponent} from './order-dialog.component';
 
 describe('OrderDialogComponent', () => {
   let component: OrderDialogComponent;
@@ -10,7 +10,7 @@ describe('OrderDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [OrderDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(OrderDialogComponent);
     component = fixture.componentInstance;
