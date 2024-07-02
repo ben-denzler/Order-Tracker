@@ -34,7 +34,12 @@
           sourceFilterPlaceholder="Search by name"
           targetFilterPlaceholder="Search by name">
           <ng-template let-product pTemplate="item">
-            <span>Product name: {{ product.name }}</span>
+            <div class="picklist-item">
+              <span>
+                <strong>{{ product.name }}</strong>
+              </span>
+              <span>{{ product.quantity }}</span>
+            </div>
           </ng-template>
         </p-pickList>
       </div>
