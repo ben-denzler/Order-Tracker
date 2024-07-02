@@ -39,6 +39,12 @@
                 <strong>{{ product.name }}</strong>
               </span>
               <span>{{ product.quantity }}</span>
+              <span>{{ product.selectedQuantity }}</span>
+              <p-inputNumber
+                [(ngModel)]="product.selectedQuantity"
+                [showButtons]="true"
+                mode="decimal"
+                [min]="1"/>
             </div>
           </ng-template>
         </p-pickList>

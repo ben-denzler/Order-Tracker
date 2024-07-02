@@ -1,5 +1,6 @@
 export interface Product {
   id: number,
   name: string,
-  quantity: number
+  quantity: number,
+  selectedQuantity: number
 }
