@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PrimeTemplate} from "primeng/api";
 import {Button} from "primeng/button";
@@ -7,7 +7,10 @@ import {DropdownModule} from "primeng/dropdown";
 import {InputNumberModule} from "primeng/inputnumber";
 import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
+import {PickListModule} from "primeng/picklist";
 import {Order} from "../order";
+import {OrderService} from "../order.service";
+import {Product} from "../product";
 
 @Component({
   selector: 'app-order-dialog',
@@ -21,18 +24,28 @@ import {Order} from "../order";
     InputTextareaModule,
     PrimeTemplate,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    PickListModule
   ],
   templateUrl: './order-dialog.component.html',
   styleUrl: './order-dialog.component.css'
 })
-export class OrderDialogComponent {
+export class OrderDialogComponent implements OnInit {
   @Input() order!: Order;
   @Input() showDialog!: boolean;
   @Input() orderStatuses!: string[];
   @Output() closeDialogEvent = new EventEmitter<void>();
   @Output() saveOrderEvent = new EventEmitter<Order>();
+  inventory!: Product[];
+  selectedProducts: Product[] = [];
   currentPage: number = 1;
+
+  constructor(private orderService: OrderService) {
+  }
+
+  ngOnInit() {
+    this.inventory = this.orderService.getInventory();
+  }
 
   goToNextPage(): void {
     this.currentPage++;
