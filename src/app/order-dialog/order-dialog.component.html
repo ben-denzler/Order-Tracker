@@ -24,8 +24,22 @@
       </div>
     } @else if (currentPage === 2) {
       <div class="field">
-        <p-treeTable>
-
+        <p-treeTable [value]="productTreeNodes">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Name</th>
+              <th>Quantity</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+            <tr [ttRow]="rowNode">
+              <td>
+                <p-treeTableToggler [rowNode]="rowNode"/>
+                {{ rowData.name }}
+              </td>
+              <td>{{ rowData.quantity }}</td>
+            </tr>
+          </ng-template>
         </p-treeTable>
       </div>
       <div class="field">

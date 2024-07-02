@@ -49,7 +49,10 @@ export class OrderDialogComponent implements OnInit {
     this.inventory = this.orderService.getInventory();
     this.productTreeNodes = Object.values(ProductCategory)
       .map((category: string) => ({
-        label: category,
+        data: {
+          name: category,
+          quantity: -1
+        },
         children: this.inventory.filter((product: Product) => product.category === category)
           .map((product: Product) => ({
             label: product.name,
