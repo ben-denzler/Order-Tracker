@@ -53,6 +53,7 @@ export class OrderDialogComponent implements OnInit {
 
   closeDialog(): void {
     console.log("Dialog emitted close event");
+    this.currentPage = 1;
     this.closeDialogEvent.emit();
   }
 
