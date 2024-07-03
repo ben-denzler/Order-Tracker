@@ -67,6 +67,7 @@ export class TableComponent implements OnInit {
 
   saveOrder(order: Order): void {
     this.orderList.push(order);
+    this.showOrderDialog = false;
     console.log("Parent handled save event");
   }
 
@@ -84,6 +85,7 @@ export class TableComponent implements OnInit {
       updatedOn: new Date(),
       dueOn: new Date()
     };
+    console.log(`Opened new! showOrderDialog is ${this.showOrderDialog}`);
   }
 
   getStockCount(p: Product): number {
