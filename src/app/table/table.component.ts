@@ -8,6 +8,7 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {TableModule} from 'primeng/table';
+import {TagModule} from "primeng/tag";
 import {ToolbarModule} from "primeng/toolbar";
 import {Order, OrderStatus} from '../order';
 import {OrderDialogComponent} from "../order-dialog/order-dialog.component";
@@ -28,7 +29,8 @@ import {Product} from '../product';
     FormsModule,
     InputNumberModule,
     ToolbarModule,
-    OrderDialogComponent
+    OrderDialogComponent,
+    TagModule
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
@@ -58,6 +60,19 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.orderList = this.orderService.getAllOrders();
     this.inventory = this.orderService.getInventory();
+  }
+
+  getSeverity(status: string): 'info' | 'warning' | 'success' | 'danger' {
+    switch (status) {
+      case OrderStatus.Designing:
+        return 'info';
+      case OrderStatus.Packaging:
+        return 'warning';
+      case OrderStatus.Finished:
+        return 'success';
+      default:
+        return 'danger';
+    }
   }
 
   closeNewDialog(): void {

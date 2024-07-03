@@ -64,7 +64,9 @@
         <td>{{ order.dueOn | date: 'MM/dd/yyyy' }}</td>
         <td>{{ order.customer }}</td>
         <td>{{ order.school }}</td>
-        <td>{{ order.status }}</td>
+        <td>
+          <p-tag [value]="order.status" [severity]="getSeverity(order.status)"/>
+        </td>
         <td>{{ order.price | currency:"USD" }}</td>
       </tr>
     </ng-template>
