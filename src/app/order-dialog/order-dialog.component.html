@@ -1,5 +1,5 @@
 <p-dialog header="Create New Order"
-          [(visible)]="showDialog" [modal]="true" [style]="{ width: '80%' }" (onShow)="this.currentPage = 1">
+          [(visible)]="showDialog" [modal]="true" [style]="{ width: '60%' }" (onShow)="this.currentPage = 1">
   <ng-template pTemplate="content">
     @if (currentPage === 1) {
       <div class="field">
@@ -23,32 +23,34 @@
         <p-inputNumber id="price" mode="currency" currency="USD" locale="en-US" [(ngModel)]="order.price"/>
       </div>
     } @else if (currentPage === 2) {
-      <div class="field">
-        <p-pickList
-          [source]="inventory"
-          [target]="order.products"
-          sourceHeader="Current Stock"
-          targetHeader="Selected Inventory"
-          [dragdrop]="true"
-          filterBy="name"
-          sourceFilterPlaceholder="Search by name"
-          targetFilterPlaceholder="Search by name">
-          <ng-template let-product pTemplate="item">
-            <div class="picklist-item">
-              <span>
-                <strong>{{ product.name }}</strong>
-              </span>
-              <span>{{ product.quantity }}</span>
-              <span>{{ product.selectedQuantity }}</span>
-              <p-inputNumber
-                [(ngModel)]="product.selectedQuantity"
-                [showButtons]="true"
-                mode="decimal"
-                [min]="1"/>
+      <p-pickList
+        [source]="inventory"
+        [target]="order.products"
+        sourceHeader="Current Stock"
+        targetHeader="Selected Products"
+        [dragdrop]="false"
+        filterBy="name"
+        sourceFilterPlaceholder="Search by name"
+        targetFilterPlaceholder="Search by name"
+        [showSourceControls]="false"
+        [showTargetControls]="false">
+        <ng-template let-product pTemplate="item">
+          <div class="picklist-item">
+            <div class="picklist-item-left">
+              <span class="font-bold">{{ product.name }}</span>
+              <span>In stock: {{ product.quantity }}</span>
             </div>
-          </ng-template>
-        </p-pickList>
-      </div>
+            <p-inputNumber
+              [(ngModel)]="product.selectedQuantity"
+              [showButtons]="true"
+              mode="decimal"
+              [min]="1"
+              [max]="product.quantity"
+              (click)="$event.stopPropagation()"
+              (mousedown)="$event.stopPropagation()"/>
+          </div>
+        </ng-template>
+      </p-pickList>
     }
   </ng-template>
   <ng-template pTemplate="footer">
