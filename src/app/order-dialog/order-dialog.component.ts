@@ -11,6 +11,7 @@ import {PickListModule} from "primeng/picklist";
 import {Order} from "../order";
 import {OrderService} from "../order.service";
 import {Product} from "../product";
+import { Employee } from '../employee';
 
 @Component({
   selector: 'app-order-dialog',
@@ -37,6 +38,7 @@ export class OrderDialogComponent implements OnInit {
   @Output() closeDialogEvent = new EventEmitter<void>();
   @Output() saveOrderEvent = new EventEmitter<Order>();
   inventory!: Product[];
+  employeesList!: Employee[];
   currentPage: number = 1;
 
   constructor(private orderService: OrderService) {
@@ -44,6 +46,8 @@ export class OrderDialogComponent implements OnInit {
 
   ngOnInit() {
     this.inventory = this.orderService.getInventory();
+    this.employeesList = this.orderService.getAllEmployees();
+    console.log(`employeesList: ${this.employeesList}`);
   }
 
   goToNextPage(): void {

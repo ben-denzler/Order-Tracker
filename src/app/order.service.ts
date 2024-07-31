@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Order, OrderStatus} from './order';
 import {Product} from './product';
+import { Employee } from './employee';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  orderList: Order[] = [
+  protected orderList: Order[] = [
     {
       id: 0,
       customer: 'Benjamin Denzler',
@@ -22,7 +23,7 @@ export class OrderService {
       updatedOn: new Date(2022, 0, 2), // January 2, 2022
       dueOn: new Date(2022, 0, 9) // Example: 7 days after updatedOn
       ,
-      assignedTo: ["John Smith"]
+      assignedTo: [{name: "John Smith"}]
     },
     {
       id: 1,
@@ -39,7 +40,7 @@ export class OrderService {
       updatedOn: new Date(2022, 0, 4), // January 4, 2022
       dueOn: new Date(2022, 0, 11) // Example: 7 days after updatedOn
       ,
-      assignedTo: ["Jane Doe", "Michael Johnson"]
+      assignedTo: [{name: "Jane Doe"}, {name: "Michael Johnson"}]
     },
     {
       id: 2,
@@ -56,7 +57,7 @@ export class OrderService {
       updatedOn: new Date(2022, 0, 6), // January 6, 2022
       dueOn: new Date(2022, 0, 13) // Example: 7 days after updatedOn
       ,
-      assignedTo: ["Emily Davis"]
+      assignedTo: [{name: "Emily Davis"}]
     },
     {
       id: 3,
@@ -73,7 +74,7 @@ export class OrderService {
       updatedOn: new Date(2022, 0, 8), // January 8, 2022
       dueOn: new Date(2022, 0, 15) // Example: 7 days after updatedOn
       ,
-      assignedTo: ["William Brown", "Olivia Wilson"]
+      assignedTo: [{name: "William Brown"}, {name: "Olivia Wilson"}]
     },
     {
       id: 4,
@@ -90,7 +91,7 @@ export class OrderService {
       updatedOn: new Date(2022, 0, 10), // January 10, 2022
       dueOn: new Date(2022, 0, 17) // Example: 7 days after updatedOn
       ,
-      assignedTo: ["James Taylor", "Sophia Anderson", "Daniel Moore"]
+      assignedTo: [{name: "James Taylor"}, {name: "Sophia Anderson"}, {name: "Daniel Moore"}]
     }
   ];
   protected inventory: Product[] = [
@@ -105,6 +106,17 @@ export class OrderService {
     {id: 8, name: 'Jacket', quantity: 27, selectedQuantity: 0},
     {id: 9, name: 'Hat', quantity: 19, selectedQuantity: 0}
   ];
+  protected employeesList: Employee[] = [
+    {name: "John Smith"},
+    {name: "Michael Johnson"},
+    {name: "Emily Davis"},
+    {name: "William Brown"},
+    {name: "Olivia Wilson"},
+    {name: "James Taylor"},
+    {name: "Sophia Anderson"},
+    {name: "Daniel Moore"},
+    {name: "Ava Martinez"},
+  ]
 
   constructor() {
   }
@@ -115,6 +127,10 @@ export class OrderService {
 
   getInventory(): Product[] {
     return this.inventory;
+  }
+
+  getAllEmployees(): Employee[] {
+    return this.employeesList;
   }
 
   getHighestOrderId(): number {

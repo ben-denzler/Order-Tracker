@@ -54,13 +54,31 @@
           </div>
         </ng-template>
       </p-pickList>
+    } @else if (currentPage === 3) {
+      <p-pickList
+        [source]="employeesList"
+        [target]="order.assignedTo"
+        sourceHeader="All Employees"
+        targetHeader="Order Assigned To"
+        [dragdrop]="true"
+        filterBy="name"
+        sourceFilterPlaceholder="Search by name"
+        targetFilterPlaceholder="Search by name"
+        [showSourceControls]="false"
+        [showTargetControls]="false">
+        <ng-template let-employee pTemplate="item">
+          <span>{{ employee.name }}</span>
+        </ng-template>
+      </p-pickList>
     }
   </ng-template>
   <ng-template pTemplate="footer">
     <p-button label="Cancel" icon="pi pi-times" (onClick)="closeDialog()"/>
     @if (currentPage === 1) {
       <p-button label="Next" icon="pi pi-arrow-right" (onClick)="goToNextPage()"/>
-    } @else {
+    } @else if (currentPage === 2) {
+      <p-button label="Next" icon="pi pi-arrow-right" (onClick)="goToNextPage()"/>
+    } @else if (currentPage === 3) {
       <p-button label="Save" icon="pi pi-check" (onClick)="saveNewOrder()"/>
     }
   </ng-template>

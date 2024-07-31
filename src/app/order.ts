@@ -1,3 +1,4 @@
+import { Employee } from "./employee";
 import {Product} from "./product";
 
 export enum OrderStatus {
@@ -17,5 +18,5 @@ export interface Order {
   createdOn: Date,
   updatedOn: Date,
   dueOn: Date,
-  assignedTo: string[],
+  assignedTo: Employee[],
 }

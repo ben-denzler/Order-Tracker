@@ -71,7 +71,7 @@
         <td>
           <p-tag [value]="order.status" [severity]="getSeverity(order.status)"/>
         </td>
-        <td>{{ order.assignedTo[0] }}</td>
+        <td>{{ order.assignedTo[0].name }}</td>
         <td>{{ order.price | currency:"USD" }}</td>
       </tr>
     </ng-template>
