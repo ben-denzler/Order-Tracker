@@ -16,5 +16,6 @@ export interface Order {
   description: string,
   createdOn: Date,
   updatedOn: Date,
-  dueOn: Date
+  dueOn: Date,
+  assignedTo: string[],
 }

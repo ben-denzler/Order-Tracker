@@ -31,6 +31,7 @@
           Status
           <p-sortIcon field="status"/>
         </th>
+        <th>Assigned To</th>
         <th pSortableColumn="price">
           Price
           <p-sortIcon field="price"/>
@@ -51,6 +52,9 @@
           <p-columnFilter type="text" field="status" placeholder="Search by status" ariaLabel="Filter Status"/>
         </th>
         <th>
+          <p-columnFilter type="text" field="assignedTo" placeholder="Search by person" ariaLabel="Filter Assignment"/>
+        </th>
+        <th>
           <p-columnFilter type="numeric" field="price" placeholder="Search by price" ariaLabel="Filter Price"/>
         </th>
       </tr>
@@ -67,6 +71,7 @@
         <td>
           <p-tag [value]="order.status" [severity]="getSeverity(order.status)"/>
         </td>
+        <td>{{ order.assignedTo[0] }}</td>
         <td>{{ order.price | currency:"USD" }}</td>
       </tr>
     </ng-template>

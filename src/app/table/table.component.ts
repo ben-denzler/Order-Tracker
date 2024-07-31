@@ -39,7 +39,7 @@ export class TableComponent implements OnInit {
   expandedRows = {};
   orderList!: Order[];
   inventory!: Product[];
-  newOrder: Order = { // FIXME: Make this a class
+  newOrder: Order = {
     id: this.orderService.getHighestOrderId() + 1,
     customer: '',
     school: '',
@@ -49,7 +49,8 @@ export class TableComponent implements OnInit {
     description: '',
     createdOn: new Date(),
     updatedOn: new Date(),
-    dueOn: new Date()
+    dueOn: new Date(),
+    assignedTo: []
   };
   orderStatuses: string[] = Object.keys(OrderStatus);
   showOrderDialog: boolean = false;
@@ -98,7 +99,8 @@ export class TableComponent implements OnInit {
       description: '',
       createdOn: new Date(),
       updatedOn: new Date(),
-      dueOn: new Date()
+      dueOn: new Date(),
+      assignedTo: []
     };
     console.log(`Opened new! showOrderDialog is ${this.showOrderDialog}`);
   }
