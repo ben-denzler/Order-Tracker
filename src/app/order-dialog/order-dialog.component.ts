@@ -41,7 +41,7 @@ export class OrderDialogComponent implements OnInit {
   @Output() saveEditOrderEvent = new EventEmitter<Order>();
   inventory!: Product[];
   employeesList!: Employee[];
-  currentPage: number = 1;
+  currentPage = 1;
 
   constructor(private orderService: OrderService) {
   }

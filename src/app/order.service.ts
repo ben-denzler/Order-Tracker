@@ -118,9 +118,6 @@ export class OrderService {
     {name: "Ava Martinez"},
   ]
 
-  constructor() {
-  }
-
   getAllOrders(): Order[] {
     return this.orderList;
   }

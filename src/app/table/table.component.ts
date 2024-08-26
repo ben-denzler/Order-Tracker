@@ -42,9 +42,9 @@ export class TableComponent implements OnInit {
   activeOrder!: Order;
   selectedOrder!: Order;
   orderStatuses: string[] = Object.keys(OrderStatus);
-  showOrderDialog: boolean = false;
-  editButtonDisabled: boolean = true;
-  isEditing: boolean = true;
+  showOrderDialog = false;
+  editButtonDisabled = true;
+  isEditing = true;
 
   constructor(private orderService: OrderService) {
   }
