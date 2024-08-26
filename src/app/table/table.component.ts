@@ -7,7 +7,7 @@ import {DropdownModule} from "primeng/dropdown";
 import {InputNumberModule} from "primeng/inputnumber";
 import {InputTextModule} from "primeng/inputtext";
 import {InputTextareaModule} from "primeng/inputtextarea";
-import {TableModule} from 'primeng/table';
+import {TableModule, TableRowSelectEvent, TableRowUnSelectEvent} from 'primeng/table';
 import {TagModule} from "primeng/tag";
 import {ToolbarModule} from "primeng/toolbar";
 import {Order, OrderStatus} from '../order';
@@ -39,21 +39,12 @@ export class TableComponent implements OnInit {
   expandedRows = {};
   orderList!: Order[];
   inventory!: Product[];
-  newOrder: Order = {
-    id: this.orderService.getHighestOrderId() + 1,
-    customer: '',
-    school: '',
-    price: 0,
-    products: [],
-    status: OrderStatus.Designing,
-    description: '',
-    createdOn: new Date(),
-    updatedOn: new Date(),
-    dueOn: new Date(),
-    assignedTo: []
-  };
+  activeOrder!: Order;
+  selectedOrder!: Order;
   orderStatuses: string[] = Object.keys(OrderStatus);
   showOrderDialog: boolean = false;
+  editButtonDisabled: boolean = true;
+  isEditing: boolean = true;
 
   constructor(private orderService: OrderService) {
   }
@@ -61,6 +52,16 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.orderList = this.orderService.getAllOrders();
     this.inventory = this.orderService.getInventory();
+  }
+
+  handleRowSelect(event?: TableRowSelectEvent): void {
+    this.editButtonDisabled = false;
+    console.log(`Row selected: ${event?.data}`);
+  }
+
+  handleRowUnselect(event?: TableRowUnSelectEvent): void {
+    this.editButtonDisabled = true;
+    console.log(`Row unselected: ${event?.data}`);
   }
 
   getSeverity(status: string): 'info' | 'warning' | 'success' | 'danger' {
@@ -76,20 +77,27 @@ export class TableComponent implements OnInit {
     }
   }
 
-  closeNewDialog(): void {
+  closeOrderDialog(): void {
     this.showOrderDialog = false;
     console.log("Parent handled close event");
   }
 
-  saveOrder(order: Order): void {
-    this.orderList.push(order);
+  saveNewOrder(newOrder: Order): void {
+    this.orderList.push(newOrder);
     this.showOrderDialog = false;
     console.log("Parent handled save event");
   }
 
+  saveEditOrder(editOrder: Order): void {
+    const orderIndex = this.orderList.findIndex(order => order.id === editOrder.id);
+    console.log(`Editing order: ${JSON.stringify(this.orderList[orderIndex])}`);
+    this.orderList[orderIndex] = editOrder;
+    console.log(`Order is now ${JSON.stringify(this.orderList[orderIndex])}`);
+    this.showOrderDialog = false;
+  }
+
   openNew(): void {
-    this.showOrderDialog = true;
-    this.newOrder = {
+    this.activeOrder = {
       id: this.orderService.getHighestOrderId() + 1,
       customer: '',
       school: '',
@@ -102,7 +110,14 @@ export class TableComponent implements OnInit {
       dueOn: new Date(),
       assignedTo: []
     };
+    this.showOrderDialog = true;
     console.log(`Opened new! showOrderDialog is ${this.showOrderDialog}`);
+  }
+
+  openEdit(): void {
+    this.activeOrder = this.selectedOrder;
+    this.showOrderDialog = true;
+    console.log(`Opened edit! showOrderDialog is ${this.showOrderDialog}`);
   }
 
   getStockCount(p: Product): number {

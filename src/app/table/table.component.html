@@ -3,6 +3,9 @@
     <div class="p-toolbar-group-start">
       <p-button severity="success" label="New Order" icon="pi pi-plus" (click)="openNew()"/>
     </div>
+    <div class="p-toolbar-group-end">
+      <p-button label="Edit Order" icon="pi pi-pencil" [disabled]="editButtonDisabled" (click)="openEdit()"/>
+  </div>
   </p-toolbar>
 </div>
 <div class="orders-table">
@@ -11,7 +14,12 @@
            [paginator]="true"
            [rows]="10"
            [rowsPerPageOptions]="[10, 25, 50]"
-           [resizableColumns]="true">
+           [resizableColumns]="true"
+           selectionMode="single"
+           [(selection)]="selectedOrder"
+           metaKeySelection="false"
+           (onRowSelect)="handleRowSelect()"
+           (onRowUnselect)="handleRowUnselect()">
     <ng-template pTemplate="header">
       <tr>
         <th class="row-dropdown"></th>
@@ -60,7 +68,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-order let-expanded="expanded">
-      <tr>
+      <tr [pSelectableRow]="order">
         <td>
           <p-button type="button" [pRowToggler]="order" [text]="true" [rounded]="true" [plain]="true"
                     [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
@@ -133,9 +141,11 @@
   </p-table>
   <app-order-dialog
     [showDialog]="showOrderDialog"
-    [order]="newOrder"
+    [order]="activeOrder"
     [orderStatuses]="orderStatuses"
-    (closeDialogEvent)="closeNewDialog()"
-    (saveOrderEvent)="saveOrder($event)">
+    [isEditing]="isEditing"
+    (closeDialogEvent)="closeOrderDialog()"
+    (saveNewOrderEvent)="saveNewOrder($event)"
+    (saveEditOrderEvent)="saveEditOrder($event)">
   </app-order-dialog>
 </div>

@@ -35,8 +35,10 @@ export class OrderDialogComponent implements OnInit {
   @Input() order!: Order;
   @Input() showDialog!: boolean;
   @Input() orderStatuses!: string[];
+  @Input() isEditing!: boolean;
   @Output() closeDialogEvent = new EventEmitter<void>();
-  @Output() saveOrderEvent = new EventEmitter<Order>();
+  @Output() saveNewOrderEvent = new EventEmitter<Order>();
+  @Output() saveEditOrderEvent = new EventEmitter<Order>();
   inventory!: Product[];
   employeesList!: Employee[];
   currentPage: number = 1;
@@ -61,8 +63,12 @@ export class OrderDialogComponent implements OnInit {
     this.closeDialogEvent.emit();
   }
 
-  saveNewOrder(): void {
+  saveOrder(): void {
     console.log("Dialog emitted save event");
-    this.saveOrderEvent.emit(this.order);
+    if (this.isEditing) {
+      this.saveEditOrderEvent.emit(this.order);
+    } else {
+      this.saveNewOrderEvent.emit(this.order);
+    }
   }
 }
