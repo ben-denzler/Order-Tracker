@@ -1,19 +1,23 @@
-import {CommonModule} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
-import {FormsModule} from "@angular/forms";
-import {ButtonModule} from 'primeng/button';
-import {DialogModule} from "primeng/dialog";
-import {DropdownModule} from "primeng/dropdown";
-import {InputNumberModule} from "primeng/inputnumber";
-import {InputTextModule} from "primeng/inputtext";
-import {InputTextareaModule} from "primeng/inputtextarea";
-import {TableModule, TableRowSelectEvent, TableRowUnSelectEvent} from 'primeng/table';
-import {TagModule} from "primeng/tag";
-import {ToolbarModule} from "primeng/toolbar";
-import {Order, OrderStatus} from '../order';
-import {OrderDialogComponent} from "../order-dialog/order-dialog.component";
-import {OrderService} from '../order.service';
-import {Product} from '../product';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import {
+  TableModule,
+  TableRowSelectEvent,
+  TableRowUnSelectEvent,
+} from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToolbarModule } from 'primeng/toolbar';
+import { Order, OrderStatus } from '../order';
+import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
+import { OrderService } from '../order.service';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-table',
@@ -30,10 +34,10 @@ import {Product} from '../product';
     InputNumberModule,
     ToolbarModule,
     OrderDialogComponent,
-    TagModule
+    TagModule,
   ],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.css'
+  styleUrl: './table.component.css',
 })
 export class TableComponent implements OnInit {
   expandedRows = {};
@@ -46,8 +50,7 @@ export class TableComponent implements OnInit {
   editButtonDisabled = true;
   isEditing = true;
 
-  constructor(private orderService: OrderService) {
-  }
+  constructor(private orderService: OrderService) {}
 
   ngOnInit() {
     this.orderList = this.orderService.getAllOrders();
@@ -79,17 +82,19 @@ export class TableComponent implements OnInit {
 
   closeOrderDialog(): void {
     this.showOrderDialog = false;
-    console.log("Parent handled close event");
+    console.log('Parent handled close event');
   }
 
   saveNewOrder(newOrder: Order): void {
     this.orderList.push(newOrder);
     this.showOrderDialog = false;
-    console.log("Parent handled save event");
+    console.log('Parent handled save event');
   }
 
   saveEditOrder(editOrder: Order): void {
-    const orderIndex = this.orderList.findIndex(order => order.id === editOrder.id);
+    const orderIndex = this.orderList.findIndex(
+      (order) => order.id === editOrder.id,
+    );
     console.log(`Editing order: ${JSON.stringify(this.orderList[orderIndex])}`);
     this.orderList[orderIndex] = editOrder;
     console.log(`Order is now ${JSON.stringify(this.orderList[orderIndex])}`);
@@ -108,7 +113,7 @@ export class TableComponent implements OnInit {
       createdOn: new Date(),
       updatedOn: new Date(),
       dueOn: new Date(),
-      assignedTo: []
+      assignedTo: [],
     };
     this.showOrderDialog = true;
     console.log(`Opened new! showOrderDialog is ${this.showOrderDialog}`);
@@ -121,7 +126,9 @@ export class TableComponent implements OnInit {
   }
 
   getStockCount(p: Product): number {
-    const numberInStock = this.inventory.find(product => product.id === p.id)?.quantity;
+    const numberInStock = this.inventory.find(
+      (product) => product.id === p.id,
+    )?.quantity;
     return numberInStock ?? 0;
   }
 

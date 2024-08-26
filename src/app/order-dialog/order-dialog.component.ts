@@ -1,16 +1,16 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {PrimeTemplate} from "primeng/api";
-import {Button} from "primeng/button";
-import {DialogModule} from "primeng/dialog";
-import {DropdownModule} from "primeng/dropdown";
-import {InputNumberModule} from "primeng/inputnumber";
-import {InputTextModule} from "primeng/inputtext";
-import {InputTextareaModule} from "primeng/inputtextarea";
-import {PickListModule} from "primeng/picklist";
-import {Order} from "../order";
-import {OrderService} from "../order.service";
-import {Product} from "../product";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PrimeTemplate } from 'primeng/api';
+import { Button } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { PickListModule } from 'primeng/picklist';
+import { Order } from '../order';
+import { OrderService } from '../order.service';
+import { Product } from '../product';
 import { Employee } from '../employee';
 
 @Component({
@@ -26,10 +26,10 @@ import { Employee } from '../employee';
     PrimeTemplate,
     ReactiveFormsModule,
     FormsModule,
-    PickListModule
+    PickListModule,
   ],
   templateUrl: './order-dialog.component.html',
-  styleUrl: './order-dialog.component.css'
+  styleUrl: './order-dialog.component.css',
 })
 export class OrderDialogComponent implements OnInit {
   @Input() order!: Order;
@@ -43,8 +43,7 @@ export class OrderDialogComponent implements OnInit {
   employeesList!: Employee[];
   currentPage = 1;
 
-  constructor(private orderService: OrderService) {
-  }
+  constructor(private orderService: OrderService) {}
 
   ngOnInit() {
     this.inventory = this.orderService.getInventory();
@@ -58,13 +57,13 @@ export class OrderDialogComponent implements OnInit {
   }
 
   closeDialog(): void {
-    console.log("Dialog emitted close event");
+    console.log('Dialog emitted close event');
     this.currentPage = 1;
     this.closeDialogEvent.emit();
   }
 
   saveOrder(): void {
-    console.log("Dialog emitted save event");
+    console.log('Dialog emitted save event');
     if (this.isEditing) {
       this.saveEditOrderEvent.emit(this.order);
     } else {

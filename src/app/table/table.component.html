@@ -1,86 +1,139 @@
 <div class="orders-toolbar">
   <p-toolbar>
     <div class="p-toolbar-group-start">
-      <p-button severity="success" label="New Order" icon="pi pi-plus" (click)="openNew()"/>
+      <p-button
+        severity="success"
+        label="New Order"
+        icon="pi pi-plus"
+        (click)="openNew()"
+      />
     </div>
     <div class="p-toolbar-group-end">
-      <p-button label="Edit Order" icon="pi pi-pencil" [disabled]="editButtonDisabled" (click)="openEdit()"/>
-  </div>
+      <p-button
+        label="Edit Order"
+        icon="pi pi-pencil"
+        [disabled]="editButtonDisabled"
+        (click)="openEdit()"
+      />
+    </div>
   </p-toolbar>
 </div>
 <div class="orders-table">
-  <p-table [value]="orderList" dataKey="id" [expandedRowKeys]="expandedRows"
-           [globalFilterFields]="['id', 'customer', 'school', 'status']"
-           [paginator]="true"
-           [rows]="10"
-           [rowsPerPageOptions]="[10, 25, 50]"
-           [resizableColumns]="true"
-           selectionMode="single"
-           [(selection)]="selectedOrder"
-           metaKeySelection="false"
-           (onRowSelect)="handleRowSelect()"
-           (onRowUnselect)="handleRowUnselect()">
+  <p-table
+    [value]="orderList"
+    dataKey="id"
+    [expandedRowKeys]="expandedRows"
+    [globalFilterFields]="['id', 'customer', 'school', 'status']"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [resizableColumns]="true"
+    selectionMode="single"
+    [(selection)]="selectedOrder"
+    metaKeySelection="false"
+    (onRowSelect)="handleRowSelect()"
+    (onRowUnselect)="handleRowUnselect()"
+  >
     <ng-template pTemplate="header">
       <tr>
         <th class="row-dropdown"></th>
         <th pSortableColumn="dueOn">
           Deadline
-          <p-sortIcon field="dueOn"/>
+          <p-sortIcon field="dueOn" />
         </th>
         <th pSortableColumn="customer">
           Customer
-          <p-sortIcon field="customer"/>
+          <p-sortIcon field="customer" />
         </th>
         <th pSortableColumn="school">
           School
-          <p-sortIcon field="school"/>
+          <p-sortIcon field="school" />
         </th>
         <th pSortableColumn="status">
           Status
-          <p-sortIcon field="status"/>
+          <p-sortIcon field="status" />
         </th>
         <th>Assigned To</th>
         <th pSortableColumn="price">
           Price
-          <p-sortIcon field="price"/>
+          <p-sortIcon field="price" />
         </th>
       </tr>
       <tr>
         <th class="row-dropdown"></th>
         <th>
-          <p-columnFilter type="date" field="dueOn" placeholder="Search by date" ariaLabel="Filter Customer"/>
+          <p-columnFilter
+            type="date"
+            field="dueOn"
+            placeholder="Search by date"
+            ariaLabel="Filter Customer"
+          />
         </th>
         <th>
-          <p-columnFilter type="text" field="customer" placeholder="Search by customer" ariaLabel="Filter Customer"/>
+          <p-columnFilter
+            type="text"
+            field="customer"
+            placeholder="Search by customer"
+            ariaLabel="Filter Customer"
+          />
         </th>
         <th>
-          <p-columnFilter type="text" field="school" placeholder="Search by school" ariaLabel="Filter School"/>
+          <p-columnFilter
+            type="text"
+            field="school"
+            placeholder="Search by school"
+            ariaLabel="Filter School"
+          />
         </th>
         <th>
-          <p-columnFilter type="text" field="status" placeholder="Search by status" ariaLabel="Filter Status"/>
+          <p-columnFilter
+            type="text"
+            field="status"
+            placeholder="Search by status"
+            ariaLabel="Filter Status"
+          />
         </th>
         <th>
-          <p-columnFilter type="text" field="assignedTo" placeholder="Search by person" ariaLabel="Filter Assignment"/>
+          <p-columnFilter
+            type="text"
+            field="assignedTo"
+            placeholder="Search by person"
+            ariaLabel="Filter Assignment"
+          />
         </th>
         <th>
-          <p-columnFilter type="numeric" field="price" placeholder="Search by price" ariaLabel="Filter Price"/>
+          <p-columnFilter
+            type="numeric"
+            field="price"
+            placeholder="Search by price"
+            ariaLabel="Filter Price"
+          />
         </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-order let-expanded="expanded">
       <tr [pSelectableRow]="order">
         <td>
-          <p-button type="button" [pRowToggler]="order" [text]="true" [rounded]="true" [plain]="true"
-                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
+          <p-button
+            type="button"
+            [pRowToggler]="order"
+            [text]="true"
+            [rounded]="true"
+            [plain]="true"
+            [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+          />
         </td>
-        <td>{{ order.dueOn | date: 'MM/dd/yyyy' }}</td>
+        <td>{{ order.dueOn | date: "MM/dd/yyyy" }}</td>
         <td>{{ order.customer }}</td>
         <td>{{ order.school }}</td>
         <td>
-          <p-tag [value]="order.status" [severity]="getSeverity(order.status)"/>
+          <p-tag
+            [value]="order.status"
+            [severity]="getSeverity(order.status)"
+          />
         </td>
         <td>{{ order.assignedTo[0].name }}</td>
-        <td>{{ order.price | currency:"USD" }}</td>
+        <td>{{ order.price | currency: "USD" }}</td>
       </tr>
     </ng-template>
     <ng-template pTemplate="rowexpansion" let-order>
@@ -88,10 +141,12 @@
         <td colspan="6">
           <div style="margin: 0.75rem">
             <span class="order-details">
-              <strong>Order created on:</strong> {{ order.createdOn | date:'longDate' }}
+              <strong>Order created on:</strong>
+              {{ order.createdOn | date: "longDate" }}
             </span>
             <span class="order-details">
-              <strong>Order updated on:</strong> {{ order.updatedOn | date:'longDate' }}
+              <strong>Order updated on:</strong>
+              {{ order.updatedOn | date: "longDate" }}
             </span>
             <div style="margin-top: 1rem">
               <strong>Description:</strong> {{ order.description }}
@@ -121,16 +176,24 @@
                   <td>
                     {{ getStockCount(product) }}
                     @if (isEnoughStock(product)) {
-                      <i class="pi pi-check-circle" style="color: green; margin-left: 0.5rem"></i>
+                      <i
+                        class="pi pi-check-circle"
+                        style="color: green; margin-left: 0.5rem"
+                      ></i>
                     } @else {
-                      <i class="pi pi-times-circle" style="color: red; margin-left: 0.5rem"></i>
+                      <i
+                        class="pi pi-times-circle"
+                        style="color: red; margin-left: 0.5rem"
+                      ></i>
                     }
                   </td>
                 </tr>
               </ng-template>
               <ng-template pTemplate="emptymessage">
                 <tr>
-                  <td colspan="6">There are no products associated with this order.</td>
+                  <td colspan="6">
+                    There are no products associated with this order.
+                  </td>
                 </tr>
               </ng-template>
             </p-table>
@@ -146,6 +209,7 @@
     [isEditing]="isEditing"
     (closeDialogEvent)="closeOrderDialog()"
     (saveNewOrderEvent)="saveNewOrder($event)"
-    (saveEditOrderEvent)="saveEditOrder($event)">
+    (saveEditOrderEvent)="saveEditOrder($event)"
+  >
   </app-order-dialog>
 </div>
