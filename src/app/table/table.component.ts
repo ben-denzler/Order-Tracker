@@ -115,6 +115,7 @@ export class TableComponent implements OnInit {
       updatedOn: new Date(),
       dueOn: new Date(),
       assignedTo: [],
+      updates: [],
     };
     this.showOrderDialog = true;
     console.log(`Opened new! showOrderDialog is ${this.showOrderDialog}`);

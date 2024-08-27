@@ -23,6 +23,7 @@ export class OrderService {
       updatedOn: new Date(2022, 0, 2), // January 2, 2022
       dueOn: new Date(2022, 0, 9), // Example: 7 days after updatedOn
       assignedTo: [{ name: 'John Smith' }],
+      updates: [],
     },
     {
       id: 1,
@@ -39,6 +40,7 @@ export class OrderService {
       updatedOn: new Date(2022, 0, 4), // January 4, 2022
       dueOn: new Date(2022, 0, 11), // Example: 7 days after updatedOn
       assignedTo: [{ name: 'Jane Doe' }, { name: 'Michael Johnson' }],
+      updates: [],
     },
     {
       id: 2,
@@ -55,6 +57,7 @@ export class OrderService {
       updatedOn: new Date(2022, 0, 6), // January 6, 2022
       dueOn: new Date(2022, 0, 13), // Example: 7 days after updatedOn
       assignedTo: [{ name: 'Emily Davis' }],
+      updates: [],
     },
     {
       id: 3,
@@ -71,6 +74,7 @@ export class OrderService {
       updatedOn: new Date(2022, 0, 8), // January 8, 2022
       dueOn: new Date(2022, 0, 15), // Example: 7 days after updatedOn
       assignedTo: [{ name: 'William Brown' }, { name: 'Olivia Wilson' }],
+      updates: [],
     },
     {
       id: 4,
@@ -91,6 +95,7 @@ export class OrderService {
         { name: 'Sophia Anderson' },
         { name: 'Daniel Moore' },
       ],
+      updates: [],
     },
   ];
   protected inventory: Product[] = [

@@ -1,4 +1,5 @@
 import { Employee } from './employee';
+import { OrderUpdate } from './order-update';
 import { Product } from './product';
 
 export enum OrderStatus {
@@ -19,4 +20,5 @@ export interface Order {
   updatedOn: Date;
   dueOn: Date;
   assignedTo: Employee[];
+  updates: OrderUpdate[];
 }
