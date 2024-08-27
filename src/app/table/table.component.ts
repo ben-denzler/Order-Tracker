@@ -40,6 +40,7 @@ import { Product } from '../product';
   styleUrl: './table.component.css',
 })
 export class TableComponent implements OnInit {
+  searchValue: string | undefined;
   expandedRows = {};
   orderList!: Order[];
   inventory!: Product[];
