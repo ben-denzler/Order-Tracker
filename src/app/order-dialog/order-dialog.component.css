@@ -8,6 +8,10 @@
   }
 }
 
+::ng-deep .p-steps {
+  padding-bottom: 2rem;
+}
+
 .picklist-item {
   display: flex;
   flex-direction: row;
