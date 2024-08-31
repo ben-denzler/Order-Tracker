@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PrimeTemplate } from 'primeng/api';
+import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -8,6 +8,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PickListModule } from 'primeng/picklist';
+import { StepsModule } from 'primeng/steps';
 import { Order } from '../order';
 import { OrderService } from '../order.service';
 import { Product } from '../product';
@@ -27,6 +28,7 @@ import { Employee } from '../employee';
     ReactiveFormsModule,
     FormsModule,
     PickListModule,
+    StepsModule,
   ],
   templateUrl: './order-dialog.component.html',
   styleUrl: './order-dialog.component.css',
@@ -41,6 +43,7 @@ export class OrderDialogComponent implements OnInit {
   @Output() saveEditOrderEvent = new EventEmitter<Order>();
   inventory!: Product[];
   employeesList!: Employee[];
+  menuItems!: MenuItem[];
   private _currentPage = 1;
   readonly lastPage = 3;
   disableBackButton = true;
@@ -52,15 +55,29 @@ export class OrderDialogComponent implements OnInit {
   ngOnInit() {
     this.inventory = this.orderService.getInventory();
     this.employeesList = this.orderService.getAllEmployees();
+    this.menuItems = [
+      {
+        label: 'Basic Info',
+      },
+      {
+        label: 'Items',
+      },
+      {
+        label: 'Assign Employees',
+      },
+    ];
     console.log(`employeesList: ${this.employeesList}`);
   }
 
   get currentPage(): number {
+    console.log(`(GET) _currentPage is: ${this._currentPage}`);
     return this._currentPage;
   }
 
   set currentPage(num: number) {
+    console.log(`(SET) _currentPage is: ${this._currentPage}`);
     this._currentPage = num;
+    console.log(`(SET) _currentPage is now: ${this._currentPage}`);
     this.disableNextButton = this._currentPage === this.lastPage ? true : false;
     this.disableBackButton = this._currentPage > 1 ? false : true;
     this.disableSaveButton = this._currentPage === this.lastPage ? false : true;

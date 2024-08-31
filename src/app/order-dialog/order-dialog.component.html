@@ -6,6 +6,11 @@
   (onHide)="closeDialog()"
 >
   <ng-template pTemplate="content">
+    <p-steps
+      [model]="menuItems"
+      [readonly]="true"
+      [activeIndex]="currentPage - 1"
+    />
     @if (currentPage === 1) {
       <div class="field">
         <label for="customer">Customer</label>
