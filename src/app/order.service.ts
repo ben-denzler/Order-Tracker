@@ -8,7 +8,7 @@ import { Employee } from './employee';
 })
 export class OrderService {
   protected orderList: Order[] = [
-    {
+    new Order({
       id: 0,
       customer: 'Benjamin Denzler',
       school: 'Century',
@@ -24,8 +24,8 @@ export class OrderService {
       dueOn: new Date(2022, 0, 9), // Example: 7 days after updatedOn
       assignedTo: [{ name: 'John Smith' }],
       updates: [],
-    },
-    {
+    }),
+    new Order({
       id: 1,
       customer: 'Alex Johnson',
       school: 'Riverside',
@@ -41,8 +41,8 @@ export class OrderService {
       dueOn: new Date(2022, 0, 11), // Example: 7 days after updatedOn
       assignedTo: [{ name: 'Jane Doe' }, { name: 'Michael Johnson' }],
       updates: [],
-    },
-    {
+    }),
+    new Order({
       id: 2,
       customer: 'Samantha Bloom',
       school: 'Greenwood',
@@ -58,8 +58,8 @@ export class OrderService {
       dueOn: new Date(2022, 0, 13), // Example: 7 days after updatedOn
       assignedTo: [{ name: 'Emily Davis' }],
       updates: [],
-    },
-    {
+    }),
+    new Order({
       id: 3,
       customer: 'Michael Reeves',
       school: 'Westview',
@@ -75,8 +75,8 @@ export class OrderService {
       dueOn: new Date(2022, 0, 15), // Example: 7 days after updatedOn
       assignedTo: [{ name: 'William Brown' }, { name: 'Olivia Wilson' }],
       updates: [],
-    },
-    {
+    }),
+    new Order({
       id: 4,
       customer: 'Linda Eastman',
       school: 'Sunrise',
@@ -96,7 +96,7 @@ export class OrderService {
         { name: 'Daniel Moore' },
       ],
       updates: [],
-    },
+    }),
   ];
   protected inventory: Product[] = [
     { id: 0, name: 'T-shirt', quantity: 10, selectedQuantity: 0 },

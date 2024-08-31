@@ -103,7 +103,7 @@ export class TableComponent implements OnInit {
   }
 
   openNew(): void {
-    this.activeOrder = {
+    this.activeOrder = new Order({
       id: this.orderService.getHighestOrderId() + 1,
       customer: '',
       school: '',
@@ -116,7 +116,7 @@ export class TableComponent implements OnInit {
       dueOn: new Date(),
       assignedTo: [],
       updates: [],
-    };
+    });
     this.showOrderDialog = true;
     console.log(`Opened new! showOrderDialog is ${this.showOrderDialog}`);
   }
