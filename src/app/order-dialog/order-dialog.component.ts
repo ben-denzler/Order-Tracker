@@ -41,7 +41,11 @@ export class OrderDialogComponent implements OnInit {
   @Output() saveEditOrderEvent = new EventEmitter<Order>();
   inventory!: Product[];
   employeesList!: Employee[];
-  currentPage = 1;
+  private _currentPage = 1;
+  readonly lastPage = 3;
+  disableBackButton = true;
+  disableNextButton = false;
+  disableSaveButton = true;
 
   constructor(private orderService: OrderService) {}
 
@@ -51,8 +55,24 @@ export class OrderDialogComponent implements OnInit {
     console.log(`employeesList: ${this.employeesList}`);
   }
 
+  get currentPage(): number {
+    return this._currentPage;
+  }
+
+  set currentPage(num: number) {
+    this._currentPage = num;
+    this.disableNextButton = this._currentPage === this.lastPage ? true : false;
+    this.disableBackButton = this._currentPage > 1 ? false : true;
+    this.disableSaveButton = this._currentPage === this.lastPage ? false : true;
+  }
+
   goToNextPage(): void {
     this.currentPage++;
+    console.log(`Current page: ${this.currentPage}`);
+  }
+
+  goToPreviousPage(): void {
+    this.currentPage--;
     console.log(`Current page: ${this.currentPage}`);
   }
 

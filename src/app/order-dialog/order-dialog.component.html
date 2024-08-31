@@ -100,20 +100,23 @@
   </ng-template>
   <ng-template pTemplate="footer">
     <p-button label="Cancel" icon="pi pi-times" (onClick)="closeDialog()" />
-    @if (currentPage === 1) {
-      <p-button
-        label="Next"
-        icon="pi pi-arrow-right"
-        (onClick)="goToNextPage()"
-      />
-    } @else if (currentPage === 2) {
-      <p-button
-        label="Next"
-        icon="pi pi-arrow-right"
-        (onClick)="goToNextPage()"
-      />
-    } @else if (currentPage === 3) {
-      <p-button label="Save" icon="pi pi-check" (onClick)="saveOrder()" />
-    }
+    <p-button
+      label="Back"
+      icon="pi pi-arrow-left"
+      [disabled]="disableBackButton"
+      (onClick)="goToPreviousPage()"
+    />
+    <p-button
+      label="Next"
+      icon="pi pi-arrow-right"
+      [disabled]="disableNextButton"
+      (onClick)="goToNextPage()"
+    />
+    <p-button
+      label="Save"
+      icon="pi pi-check"
+      [disabled]="disableSaveButton"
+      (onClick)="saveOrder()"
+    />
   </ng-template>
 </p-dialog>
