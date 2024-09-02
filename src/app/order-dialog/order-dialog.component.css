@@ -12,6 +12,17 @@
   padding-bottom: 2rem;
 }
 
+::ng-deep .p-picklist-header.ng-star-inserted {
+  padding: 0.6rem 1rem 0.6rem 1rem;
+}
+
+.picklist-headers {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .picklist-item {
   display: flex;
   flex-direction: row;
