@@ -16,6 +16,20 @@
   padding: 0.6rem 1rem 0.6rem 1rem;
 }
 
+.overlay-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.buttons-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .picklist-headers {
   display: flex;
   flex-direction: row;

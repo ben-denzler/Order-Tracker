@@ -7,12 +7,13 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
 import { PickListModule } from 'primeng/picklist';
 import { StepsModule } from 'primeng/steps';
+import { Employee } from '../employee';
 import { Order } from '../order';
 import { OrderService } from '../order.service';
 import { Product } from '../product';
-import { Employee } from '../employee';
 
 @Component({
   selector: 'app-order-dialog',
@@ -29,6 +30,7 @@ import { Employee } from '../employee';
     FormsModule,
     PickListModule,
     StepsModule,
+    OverlayPanelModule,
   ],
   templateUrl: './order-dialog.component.html',
   styleUrl: './order-dialog.component.css',
@@ -49,6 +51,7 @@ export class OrderDialogComponent implements OnInit {
   disableBackButton = true;
   disableNextButton = false;
   disableSaveButton = true;
+  customProduct!: Product;
 
   constructor(private orderService: OrderService) {}
 
@@ -66,6 +69,12 @@ export class OrderDialogComponent implements OnInit {
         label: 'Assign Employees',
       },
     ];
+    this.customProduct = {
+      id: -1,
+      name: '',
+      quantity: 0,
+      selectedQuantity: 0,
+    };
     console.log(`employeesList: ${this.employeesList}`);
   }
 
@@ -93,14 +102,40 @@ export class OrderDialogComponent implements OnInit {
     console.log(`Current page: ${this.currentPage}`);
   }
 
+  cancelCustomProduct(op: OverlayPanel): void {
+    op.hide();
+    this.resetCustomProduct();
+  }
+
+  saveCustomProduct(op: OverlayPanel): void {
+    op.hide();
+    this.order.products.push(this.customProduct);
+    this.resetCustomProduct();
+    console.log('Pushed the following custom product to the current order:');
+    console.log(JSON.stringify(this.customProduct));
+  }
+
+  resetCustomProduct(): void {
+    this.customProduct = {
+      id: -1,
+      name: '',
+      quantity: 0,
+      selectedQuantity: 0,
+    };
+    console.log('Reset custom product.');
+    console.log(`It's now: ${JSON.stringify(this.customProduct)}}`);
+  }
+
   closeDialog(): void {
     console.log('Dialog emitted close event');
     this.currentPage = 1;
+    this.resetCustomProduct();
     this.closeDialogEvent.emit();
   }
 
   saveOrder(): void {
     console.log('Dialog emitted save event');
+    this.resetCustomProduct();
     if (this.isEditing) {
       this.saveEditOrderEvent.emit(this.order);
     } else {

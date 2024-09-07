@@ -133,7 +133,7 @@
                   <th class="row-dropdown"></th>
                   <td>{{ product.id }}</td>
                   <td>{{ product.name }}</td>
-                  <td>{{ product.quantity }}</td>
+                  <td>{{ product.selectedQuantity }}</td>
                   <td>
                     {{ getStockCount(product) }}
                     @if (isEnoughStock(product)) {

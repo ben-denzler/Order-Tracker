@@ -67,7 +67,44 @@
         <ng-template pTemplate="sourceHeader">
           <div class="picklist-headers">
             <span>Current Stock</span>
-            <p-button label="New Item" icon="pi pi-plus" size="small" />
+            <p-button
+              label="New Item"
+              icon="pi pi-plus"
+              size="small"
+              (onClick)="op.toggle($event)"
+            />
+            <p-overlayPanel #op class="overlay-panel">
+              <div class="field">
+                <label for="customProductName">Name</label>
+                <input
+                  id="customProductName"
+                  type="text"
+                  pInputText
+                  [(ngModel)]="customProduct.name"
+                />
+              </div>
+              <div class="field">
+                <label for="customProductQuantity">Quantity</label>
+                <p-inputNumber
+                  id="customProductQuantity"
+                  [(ngModel)]="customProduct.selectedQuantity"
+                />
+              </div>
+              <div class="buttons-footer">
+                <p-button
+                  label="Cancel"
+                  icon="pi pi-times"
+                  size="small"
+                  (onClick)="cancelCustomProduct(op)"
+                />
+                <p-button
+                  label="Save"
+                  icon="pi pi-check"
+                  size="small"
+                  (onClick)="saveCustomProduct(op)"
+                />
+              </div>
+            </p-overlayPanel>
           </div>
         </ng-template>
         <ng-template pTemplate="targetHeader">

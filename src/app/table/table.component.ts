@@ -49,7 +49,7 @@ export class TableComponent implements OnInit {
   orderStatuses: string[] = Object.keys(OrderStatus);
   showOrderDialog = false;
   editButtonDisabled = true;
-  isEditing = true;
+  isEditing = false;
 
   constructor(private orderService: OrderService) {}
 
@@ -103,6 +103,7 @@ export class TableComponent implements OnInit {
   }
 
   openNew(): void {
+    this.isEditing = false;
     this.activeOrder = new Order({
       id: this.orderService.getHighestOrderId() + 1,
       customer: '',
@@ -122,6 +123,7 @@ export class TableComponent implements OnInit {
   }
 
   openEdit(): void {
+    this.isEditing = true;
     this.activeOrder = this.selectedOrder;
     this.showOrderDialog = true;
     console.log(`Opened edit! showOrderDialog is ${this.showOrderDialog}`);
