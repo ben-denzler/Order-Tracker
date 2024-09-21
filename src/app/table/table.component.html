@@ -98,6 +98,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="rowexpansion" let-order>
+      <!-- Basic info, e.g. description -->
       <tr>
         <td colspan="7">
           <div style="margin: 0.75rem">
@@ -115,6 +116,7 @@
           </div>
         </td>
       </tr>
+      <!-- Products in order -->
       <tr>
         <td colspan="7">
           <div class="p-0">
@@ -161,6 +163,33 @@
           </div>
         </td>
       </tr>
+      <!-- Order update history -->
+      @if (order.updates) {
+        <tr>
+          <td colspan="7">
+            <div class="p-0">
+              <p-table [value]="order.updates" dataKey="id">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th class="row-dropdown"></th>
+                    <th>Update Date & Time</th>
+                    <th>Employee Name</th>
+                    <th>Message</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-update>
+                  <tr>
+                    <th class="row-dropdown"></th>
+                    <td>{{ update.dateTime | date: "short" }}</td>
+                    <td>{{ update.updatedBy.name }}</td>
+                    <td>{{ update.note }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </td>
+        </tr>
+      }
     </ng-template>
   </p-table>
   <app-order-dialog

@@ -23,7 +23,20 @@ export class OrderService {
       updatedOn: new Date(2022, 0, 2), // January 2, 2022
       dueOn: new Date(2022, 0, 9), // Example: 7 days after updatedOn
       assignedTo: [{ name: 'John Smith' }],
-      updates: [],
+      updates: [
+        {
+          id: 2,
+          dateTime: new Date('2024-07-04T15:30:00'),
+          note: 'I updated again.',
+          updatedBy: { name: 'Benjamin Denzler' },
+        },
+        {
+          id: 1,
+          dateTime: new Date('2023-01-01T00:00:00'),
+          note: 'Updated this order!',
+          updatedBy: { name: 'Benjamin Denzler' },
+        },
+      ],
     }),
     new Order({
       id: 1,
