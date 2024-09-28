@@ -12,6 +12,7 @@ import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Button } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -20,6 +21,7 @@ import { PickListModule } from 'primeng/picklist';
 import { StepsModule } from 'primeng/steps';
 import { Employee } from '../employee';
 import { Order } from '../order';
+import { OrderUpdate } from '../order-update';
 import { OrderService } from '../order.service';
 import { Product } from '../product';
 
@@ -46,6 +48,7 @@ const editingMenuItem = {
     Button,
     DialogModule,
     DropdownModule,
+    FloatLabelModule,
     InputNumberModule,
     InputTextModule,
     InputTextareaModule,
@@ -70,12 +73,14 @@ export class OrderDialogComponent implements OnInit, OnChanges {
   inventory!: Product[];
   employeesList!: Employee[];
   menuItems!: MenuItem[];
-  private _currentPage = 1;
-  readonly lastPage = 3;
+  private readonly _firstPage = 1;
+  private _lastPage = 3;
+  private _currentPage = this._firstPage;
   disableBackButton = true;
   disableNextButton = false;
   disableSaveButton = true;
   customProduct!: Product;
+  orderUpdate!: OrderUpdate;
 
   constructor(private orderService: OrderService) {}
 
@@ -90,15 +95,23 @@ export class OrderDialogComponent implements OnInit, OnChanges {
       quantity: 0,
       selectedQuantity: 0,
     };
+    this.orderUpdate = {
+      id: -1,
+      dateTime: new Date(),
+      note: '',
+      updatedBy: { name: '' },
+    };
     console.log(`employeesList: ${this.employeesList}`);
   }
 
+  // FIXME: This is not catching more than the first change to `isEditing`
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['showDialog']?.currentValue === true) {
-      this.menuItems = this.isEditing
-        ? [...baseMenuItems, editingMenuItem]
-        : baseMenuItems;
-    }
+    const isEditing = changes['isEditing']?.currentValue;
+    this.menuItems = isEditing
+      ? [...baseMenuItems, editingMenuItem]
+      : baseMenuItems;
+    this._lastPage = this.menuItems.length;
+    console.log(`Last page number is ${this._lastPage}`);
   }
 
   get currentPage(): number {
@@ -107,12 +120,19 @@ export class OrderDialogComponent implements OnInit, OnChanges {
   }
 
   set currentPage(num: number) {
-    console.log(`(SET) _currentPage is: ${this._currentPage}`);
-    this._currentPage = num;
-    console.log(`(SET) _currentPage is now: ${this._currentPage}`);
-    this.disableNextButton = this._currentPage === this.lastPage ? true : false;
-    this.disableBackButton = this._currentPage > 1 ? false : true;
-    this.disableSaveButton = this._currentPage === this.lastPage ? false : true;
+    this._currentPage = Math.max(
+      Math.min(num, this._lastPage),
+      this._firstPage,
+    );
+    this.updateFooterButtons();
+  }
+
+  updateFooterButtons(): void {
+    this.disableNextButton =
+      this._currentPage === this._lastPage ? true : false;
+    this.disableBackButton = this._currentPage > this._firstPage ? false : true;
+    this.disableSaveButton =
+      this._currentPage === this._lastPage ? false : true;
   }
 
   goToNextPage(): void {
@@ -160,6 +180,11 @@ export class OrderDialogComponent implements OnInit, OnChanges {
     console.log('Dialog emitted save event');
     this.resetCustomProduct();
     if (this.isEditing) {
+      this.orderUpdate.id = (this.order.updates[0]?.id ?? 0) + 1;
+      this.orderUpdate.dateTime = new Date();
+      this.orderUpdate.updatedBy = { name: 'Some Employee' }; // FIXME: How will we determine the employee?
+      this.order.updates.push(this.orderUpdate);
+      console.log(`Order update is: ${JSON.stringify(this.orderUpdate)}`);
       this.saveEditOrderEvent.emit(this.order);
     } else {
       this.saveNewOrderEvent.emit(this.order);

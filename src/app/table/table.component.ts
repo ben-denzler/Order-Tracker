@@ -96,9 +96,7 @@ export class TableComponent implements OnInit {
     const orderIndex = this.orderList.findIndex(
       (order) => order.id === editOrder.id,
     );
-    console.log(`Editing order: ${JSON.stringify(this.orderList[orderIndex])}`);
     this.orderList[orderIndex] = editOrder;
-    console.log(`Order is now ${JSON.stringify(this.orderList[orderIndex])}`);
     this.showOrderDialog = false;
   }
 

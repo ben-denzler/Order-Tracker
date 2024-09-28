@@ -147,6 +147,23 @@
           <span>{{ employee.name }}</span>
         </ng-template>
       </p-pickList>
+    } @else if (this.isEditing && currentPage === 4) {
+      <div class="update-message">
+        <p-floatLabel>
+          <textarea
+            rows="10"
+            pInputTextarea
+            id="editMessage"
+            [autoResize]="true"
+            style="width: 100%"
+            [(ngModel)]="orderUpdate.note"
+          ></textarea>
+          <label for="editMessage"
+            >(Optional) Enter a message to explain this update in more
+            detail.</label
+          >
+        </p-floatLabel>
+      </div>
     }
   </ng-template>
   <ng-template pTemplate="footer">
