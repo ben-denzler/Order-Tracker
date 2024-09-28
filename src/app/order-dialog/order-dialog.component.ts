@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Button } from 'primeng/button';
@@ -14,6 +22,22 @@ import { Employee } from '../employee';
 import { Order } from '../order';
 import { OrderService } from '../order.service';
 import { Product } from '../product';
+
+const baseMenuItems = [
+  {
+    label: 'Basic Info',
+  },
+  {
+    label: 'Items',
+  },
+  {
+    label: 'Assign Employees',
+  },
+];
+
+const editingMenuItem = {
+  label: 'Notes',
+};
 
 @Component({
   selector: 'app-order-dialog',
@@ -35,7 +59,7 @@ import { Product } from '../product';
   templateUrl: './order-dialog.component.html',
   styleUrl: './order-dialog.component.css',
 })
-export class OrderDialogComponent implements OnInit {
+export class OrderDialogComponent implements OnInit, OnChanges {
   @Input() order!: Order;
   @Input() showDialog!: boolean;
   @Input() orderStatuses!: string[];
@@ -55,20 +79,11 @@ export class OrderDialogComponent implements OnInit {
 
   constructor(private orderService: OrderService) {}
 
+  // TODO: Do we need to move some of this to `ngOnChanges()`?
+  // `ngOnInit()` will only run once at initialization
   ngOnInit() {
     this.inventory = this.orderService.getInventory();
     this.employeesList = this.orderService.getAllEmployees();
-    this.menuItems = [
-      {
-        label: 'Basic Info',
-      },
-      {
-        label: 'Items',
-      },
-      {
-        label: 'Assign Employees',
-      },
-    ];
     this.customProduct = {
       id: -1,
       name: '',
@@ -76,6 +91,14 @@ export class OrderDialogComponent implements OnInit {
       selectedQuantity: 0,
     };
     console.log(`employeesList: ${this.employeesList}`);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['showDialog']?.currentValue === true) {
+      this.menuItems = this.isEditing
+        ? [...baseMenuItems, editingMenuItem]
+        : baseMenuItems;
+    }
   }
 
   get currentPage(): number {
