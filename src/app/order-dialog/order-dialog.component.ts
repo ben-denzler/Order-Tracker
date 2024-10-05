@@ -84,30 +84,18 @@ export class OrderDialogComponent implements OnInit, OnChanges {
 
   constructor(private orderService: OrderService) {}
 
-  // TODO: Do we need to move some of this to `ngOnChanges()`?
-  // `ngOnInit()` will only run once at initialization
   ngOnInit() {
     this.inventory = this.orderService.getInventory();
     this.employeesList = this.orderService.getAllEmployees();
-    this.customProduct = {
-      id: -1,
-      name: '',
-      quantity: 0,
-      selectedQuantity: 0,
-    };
-    this.orderUpdate = {
-      id: -1,
-      dateTime: new Date(),
-      note: '',
-      updatedBy: { name: '' },
-    };
     console.log(`employeesList: ${this.employeesList}`);
   }
 
-  // FIXME: This is not catching more than the first change to `isEditing`
   ngOnChanges(changes: SimpleChanges): void {
-    const isEditing = changes['isEditing']?.currentValue;
-    this.menuItems = isEditing
+    if (changes['showDialog']?.currentValue) {
+      this.resetCustomProduct();
+      this.resetOrderUpdate();
+    }
+    this.menuItems = changes['isEditing']?.currentValue
       ? [...baseMenuItems, editingMenuItem]
       : baseMenuItems;
     this._lastPage = this.menuItems.length;
@@ -143,6 +131,15 @@ export class OrderDialogComponent implements OnInit, OnChanges {
   goToPreviousPage(): void {
     this.currentPage--;
     console.log(`Current page: ${this.currentPage}`);
+  }
+
+  resetOrderUpdate(): void {
+    this.orderUpdate = {
+      id: -1,
+      dateTime: new Date(),
+      note: '',
+      updatedBy: { name: '' },
+    };
   }
 
   cancelCustomProduct(op: OverlayPanel): void {
@@ -183,7 +180,7 @@ export class OrderDialogComponent implements OnInit, OnChanges {
       this.orderUpdate.id = (this.order.updates[0]?.id ?? 0) + 1;
       this.orderUpdate.dateTime = new Date();
       this.orderUpdate.updatedBy = { name: 'Some Employee' }; // FIXME: How will we determine the employee?
-      this.order.updates.push(this.orderUpdate);
+      this.order.updates.unshift(this.orderUpdate);
       console.log(`Order update is: ${JSON.stringify(this.orderUpdate)}`);
       this.saveEditOrderEvent.emit(this.order);
     } else {

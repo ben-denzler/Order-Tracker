@@ -98,6 +98,7 @@ export class TableComponent implements OnInit {
     );
     this.orderList[orderIndex] = editOrder;
     this.showOrderDialog = false;
+    this.isEditing = false;
   }
 
   openNew(): void {
