@@ -23,7 +23,7 @@ import { Employee } from '../employee';
 import { Order } from '../order';
 import { OrderUpdate } from '../order-update';
 import { OrderService } from '../order.service';
-import { Product } from '../product';
+import { Product, ProductStatus } from '../product';
 
 const baseMenuItems = [
   {
@@ -161,6 +161,7 @@ export class OrderDialogComponent implements OnInit, OnChanges {
       name: '',
       quantity: 0,
       selectedQuantity: 0,
+      status: ProductStatus.NeedToOrder,
     };
     console.log('Reset custom product.');
     console.log(`It's now: ${JSON.stringify(this.customProduct)}}`);
