@@ -59,6 +59,13 @@
   font-weight: bold;
 }
 
+.item-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
+}
+
 .update-message {
   margin-top: 1rem;
 }

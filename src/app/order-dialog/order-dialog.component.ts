@@ -10,7 +10,9 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { Button } from 'primeng/button';
+import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
+import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -35,6 +37,9 @@ const baseMenuItems = [
   {
     label: 'Assign Employees',
   },
+  {
+    label: 'Item Statuses',
+  },
 ];
 
 const editingMenuItem = {
@@ -46,7 +51,9 @@ const editingMenuItem = {
   standalone: true,
   imports: [
     Button,
+    DataViewModule,
     DialogModule,
+    DividerModule,
     DropdownModule,
     FloatLabelModule,
     InputNumberModule,
@@ -70,17 +77,18 @@ export class OrderDialogComponent implements OnInit, OnChanges {
   @Output() closeDialogEvent = new EventEmitter<void>();
   @Output() saveNewOrderEvent = new EventEmitter<Order>();
   @Output() saveEditOrderEvent = new EventEmitter<Order>();
+  productStatuses = Object.values(ProductStatus);
   inventory!: Product[];
   employeesList!: Employee[];
   menuItems!: MenuItem[];
+  customProduct!: Product;
+  orderUpdate!: OrderUpdate;
   private readonly _firstPage = 1;
-  private _lastPage = 3;
+  private _lastPage = baseMenuItems.length;
   private _currentPage = this._firstPage;
   disableBackButton = true;
   disableNextButton = false;
   disableSaveButton = true;
-  customProduct!: Product;
-  orderUpdate!: OrderUpdate;
 
   constructor(private orderService: OrderService) {}
 

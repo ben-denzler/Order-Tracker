@@ -17,7 +17,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { Order, OrderStatus } from '../order';
 import { OrderDialogComponent } from '../order-dialog/order-dialog.component';
 import { OrderService } from '../order.service';
-import { Product } from '../product';
+import { Product, ProductStatus } from '../product';
 
 @Component({
   selector: 'app-table',
@@ -68,13 +68,28 @@ export class TableComponent implements OnInit {
     console.log(`Row unselected: ${event?.data}`);
   }
 
-  getSeverity(status: string): 'info' | 'warning' | 'success' | 'danger' {
+  getOrderSeverity(status: string): 'info' | 'warning' | 'success' | 'danger' {
     switch (status) {
       case OrderStatus.Designing:
         return 'info';
       case OrderStatus.Packaging:
         return 'warning';
       case OrderStatus.Finished:
+        return 'success';
+      default:
+        return 'danger';
+    }
+  }
+
+  getProductSeverity(
+    status: ProductStatus,
+  ): 'info' | 'warning' | 'success' | 'danger' {
+    switch (status) {
+      case ProductStatus.NeedToOrder:
+        return 'info';
+      case ProductStatus.WaitingShipment:
+        return 'warning';
+      case ProductStatus.ReadyForProd:
         return 'success';
       default:
         return 'danger';
